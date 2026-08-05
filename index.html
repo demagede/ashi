@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Saku Teknisi HP Pemula - Akademi Servis HP Indonesia (ASHI)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#0f172a',
+                            gold: '#f59e0b',
+                            accent: '#10b981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .pulse-subtle {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3">
+                    <button id="mobile-menu-btn" class="md:hidden text-slate-400 hover:text-white p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/30">
+                        <i class="fa-solid fa-microchip text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">ASHI</span>
+                            <span class="text-xs text-slate-400 hidden sm:inline">Akademi Servis HP Indonesia</span>
+                        </div>
+                        <h1 class="text-base font-bold text-white tracking-tight leading-none mt-1">Buku Saku Teknisi HP Pemula</h1>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 text-blue-400 bg-slate-800">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </button>
+                    <button onclick="switchTab('book')" id="nav-book" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Modul Belajar</span>
+                    </button>
+                    <button onclick="switchTab('workbench')" id="nav-workbench" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-vial"></i>
+                        <span>Simulasi Alat</span>
+                        <span class="bg-emerald-500/20 text-emerald-400 text-xs px-1.5 py-0.5 rounded border border-emerald-500/30 font-semibold">Praktik</span>
+                    </button>
+                    <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span>Quiz & Ujian</span>
+                    </button>
+                    <button onclick="switchTab('videos')" id="nav-videos" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-circle-play"></i>
+                        <span>Video Mentoring</span>
+                    </button>
+                </nav>
+
+                <!-- User Profile / Author Tag -->
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:block text-right">
+                        <div class="text-xs text-slate-400">Penulis / Mentor</div>
+                        <div class="text-sm font-bold text-amber-400 flex items-center space-x-1">
+                            <span>Dedy Priyady</span>
+                            <i class="fa-solid fa-circle-check text-xs text-blue-400"></i>
+                        </div>
+                    </div>
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center font-bold text-slate-900 shadow-md">
+                        DP
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800 flex items-center space-x-3">
+                <i class="fa-solid fa-chart-pie w-5"></i><span>Dashboard</span>
+            </button>
+            <button onclick="switchTab('book')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800 flex items-center space-x-3">
+                <i class="fa-solid fa-book-open w-5"></i><span>Modul Belajar (Buku Saku)</span>
+            </button>
+            <button onclick="switchTab('workbench')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800 flex items-center space-x-3">
+                <i class="fa-solid fa-vial w-5 text-emerald-400"></i><span>Simulasi Meja Servis</span>
+            </button>
+            <button onclick="switchTab('quiz')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800 flex items-center space-x-3">
+                <i class="fa-solid fa-circle-question w-5"></i><span>Quiz Interaktif</span>
+            </button>
+            <button onclick="switchTab('videos')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800 flex items-center space-x-3">
+                <i class="fa-solid fa-circle-play w-5"></i><span>Video Tutorial Mentoring</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ==================== TAB 1: DASHBOARD ==================== -->
+        <section id="tab-dashboard" class="tab-content space-y-6">
+            <!-- Mentor Hero Banner -->
+            <div class="relative bg-gradient-to-r from-blue-900 via-indigo-950 to-slate-900 rounded-2xl p-6 sm:p-8 border border-blue-500/20 overflow-hidden shadow-2xl">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-blue-400 pointer-events-none">
+                    <i class="fa-solid fa-screwdriver-wrench text-[220px]"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl space-y-3">
+                    <div class="inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full text-amber-400 text-xs font-semibold">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        <span>Pendekatan Praktis: Belajar Seperti Didampingi Mentor</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                        "Selamat Datang di Meja Kerja Servis HP Anda."
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Di sini kita <span class="text-amber-400 font-semibold">tidak membicarakan teori rumit kampus</span>. Kita belajar langsung mendiagnosa kerusakan, membaca arus power supply, mengukur hambatan dalam multimeter, dan menyelesaikan masalah HP mati total langkah demi langkah.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="switchTab('book'); loadChapter(0);" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center space-x-2">
+                            <span>Mulai Belajar Bab 1</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        <button onclick="switchTab('workbench')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium px-5 py-2.5 rounded-xl transition flex items-center space-x-2">
+                            <i class="fa-solid fa-microchip text-emerald-400"></i>
+                            <span>Buka Simulator Power Supply</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats & Progress Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Progres Buku Saku</span>
+                        <i class="fa-solid fa-book-bookmark text-blue-400"></i>
+                    </div>
+                    <div class="flex items-baseline space-x-2">
+                        <span id="stat-progress-pct" class="text-3xl font-extrabold text-white">0%</span>
+                        <span class="text-xs text-slate-400"><span id="stat-progress-count">0</span> / 10 Bab</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="stat-progress-bar" class="bg-blue-500 h-full w-0 transition-all duration-500"></div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Skor Quiz Rata-rata</span>
+                        <i class="fa-solid fa-trophy text-amber-400"></i>
+                    </div>
+                    <div class="flex items-baseline space-x-2">
+                        <span id="stat-quiz-score" class="text-3xl font-extrabold text-amber-400">0</span>
+                        <span class="text-xs text-slate-400">/ 100 Poin</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Berdasarkan ujian pemahaman bab</p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Jam Praktik Simulasi</span>
+                        <i class="fa-solid fa-clock-rotate-left text-emerald-400"></i>
+                    </div>
+                    <div class="flex items-baseline space-x-2">
+                        <span id="stat-sim-count" class="text-3xl font-extrabold text-emerald-400">0</span>
+                        <span class="text-xs text-slate-400">Sesi Diagnosa</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Sumbu pengukuran Multimeter & PSU</p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-2">
+                    <div class="flex items-center justify-between text-slate-400">
+                        <span class="text-xs font-semibold uppercase tracking-wider">Status Sertifikasi</span>
+                        <i class="fa-solid fa-certificate text-purple-400"></i>
+                    </div>
+                    <div id="stat-cert-status" class="text-lg font-bold text-slate-300 flex items-center space-x-2">
+                        <i class="fa-solid fa-hourglass-start text-amber-400 text-sm"></i>
+                        <span>Selesaikan 10 Bab</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Verifikasi standar lulusan ASHI</p>
+                </div>
+            </div>
+
+            <!-- Learning Roadmap / Quick Chapter Selector -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Roadmap Kurikulum Buku Saku (10 Bab Master)</h3>
+                        <p class="text-xs text-slate-400">Disusun bertahap dari pengenalan alat sampai jurus meja servis kasus sulit</p>
+                    </div>
+                    <button onclick="switchTab('book')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center space-x-1">
+                        <span>Lihat Semua Bab</span>
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="dashboard-chapter-grid">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+            </div>
+
+            <!-- Commitments Banner -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                <h3 class="text-base font-bold text-amber-400 flex items-center space-x-2 mb-4">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Komitmen Metode Belajar ASHI & Mentor Dedy Priyady</span>
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
+                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-comments text-blue-400 text-lg mb-1"></i>
+                        <div class="text-xs font-bold text-white">Bahasa Sederhana</div>
+                    </div>
+                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-image text-emerald-400 text-lg mb-1"></i>
+                        <div class="text-xs font-bold text-white">Banyak Analog Visual</div>
+                    </div>
+                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-screwdriver text-amber-400 text-lg mb-1"></i>
+                        <div class="text-xs font-bold text-white">Banyak Praktik</div>
+                    </div>
+                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-book-bookmark text-rose-400 text-lg mb-1"></i>
+                        <div class="text-xs font-bold text-white">Minimalis Teori Teoretis</div>
+                    </div>
+                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-sitemap text-purple-400 text-lg mb-1"></i>
+                        <div class="text-xs font-bold text-white">Flowchart Logika</div>
+                    </div>
+                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-briefcase text-cyan-400 text-lg mb-1"></i>
+                        <div class="text-xs font-bold text-white">Studi Kasus Nyata</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 2: MODUL BUKU SAKU ==================== -->
+        <section id="tab-book" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Sidebar Navigation Bab -->
+                <div class="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-4 h-fit sticky top-20">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                        <h3 class="font-bold text-white text-sm flex items-center space-x-2">
+                            <i class="fa-solid fa-list-ol text-blue-400"></i>
+                            <span>Daftar Bab & Materi</span>
+                        </h3>
+                        <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-400" id="reading-mode-badge">Mode Baca</span>
+                    </div>
+                    <div class="space-y-1 max-h-[70vh] overflow-y-auto custom-scrollbar pr-1" id="chapter-list">
+                        <!-- Populated dynamic list -->
+                    </div>
+                </div>
+
+                <!-- Reading View Container -->
+                <div class="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 relative" id="chapter-content-container">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 3: SIMULATOR MEJA SERVIS ==================== -->
+        <section id="tab-workbench" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-slate-900 to-indigo-950 p-6 rounded-2xl border border-indigo-500/30">
+                <h2 class="text-xl font-extrabold text-white flex items-center space-x-3">
+                    <i class="fa-solid fa-vial text-emerald-400"></i>
+                    <span>Laboratorium Simulasi Meja Servis (Interactive Workbench)</span>
+                </h2>
+                <p class="text-slate-300 text-sm mt-1">
+                    Uji pemahaman Anda mengalisa kasus HP Mati Total (Matot), Konslet/Short, dan Pengukuran Jalur secara real-time tanpa takut komponen terbakar!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Simulator 1: Power Supply Analyser (PSU) -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Alat #1</span>
+                            <h3 class="text-lg font-bold text-white">Power Supply Digital Analyser</h3>
+                        </div>
+                        <i class="fa-solid fa-plug text-2xl text-slate-600"></i>
+                    </div>
+
+                    <!-- Visual PSU Screen -->
+                    <div class="bg-slate-950 rounded-xl p-5 border-2 border-slate-800 font-mono shadow-inner space-y-4">
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                <div class="text-xs text-slate-500">VOLTAGE (V)</div>
+                                <div id="psu-voltage-display" class="text-3xl font-extrabold text-amber-400 tracking-wider">4.00</div>
+                                <div class="text-[10px] text-slate-500">Set Standard VBAT</div>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                <div class="text-xs text-slate-500">CURRENT (A)</div>
+                                <div id="psu-current-display" class="text-3xl font-extrabold text-emerald-400 tracking-wider">0.000</div>
+                                <div id="psu-status-tag" class="text-[10px] text-slate-400 font-sans">Standby (Power OFF)</div>
+                            </div>
+                        </div>
+
+                        <!-- Graph / Current Bar -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>0.00A</span>
+                                <span>0.10A</span>
+                                <span>0.50A</span>
+                                <span>1.00A+</span>
+                            </div>
+                            <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-800">
+                                <div id="psu-meter-bar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulator Controls & Scenarios -->
+                    <div class="space-y-3">
+                        <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Pilih Skenario Kasus HP di Meja Kerja:</label>
+                        <select id="psu-scenario-select" onchange="runPsuScenario()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                            <option value="normal">1. HP Normal (Picu Saklar -> Arus Naik 0.08A -> 0.35A -> Booting)</option>
+                            <option value="matot_gantung">2. Matot Arus Gantung (Di-press -> Naik 0.05A Tetap Diam)</option>
+                            <option value="short_vbat">3. Konslet Full (Short VBAT) -> Arus Langsung Max 2.0A BEEP!</option>
+                            <option value="no_response">4. Matot Nihil / Arus 0.00A (Jalur Power Terputus / Baterai Melayang)</option>
+                        </select>
+
+                        <div class="flex space-x-2 pt-2">
+                            <button id="psu-power-btn" onclick="triggerPsuPowerButton()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl transition text-sm flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30">
+                                <i class="fa-solid fa-power-off"></i>
+                                <span>Tekan Tombol Power HP</span>
+                            </button>
+                            <button onclick="resetPsu()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 px-4 rounded-xl text-sm">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mentor Diagnostic Explanation Box -->
+                    <div id="psu-mentor-box" class="bg-blue-950/40 border border-blue-500/30 rounded-xl p-4 space-y-2">
+                        <div class="flex items-center space-x-2 text-amber-400 font-bold text-xs">
+                            <i class="fa-solid fa-user-ninja"></i>
+                            <span>Analisa Mentor Dedy Priyady:</span>
+                        </div>
+                        <p id="psu-mentor-text" class="text-xs text-slate-300 leading-relaxed">
+                            Pilih salah satu skenario di atas lalu tekan tombol Power HP untuk melihat pergerakan jarum/angka arus digital pada Power Supply Anda.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Simulator 2: Digital Multimeter Diode Mode Test -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Alat #2</span>
+                            <h3 class="text-lg font-bold text-white">Multimeter Digital (Pengukuran Pasif/Diode)</h3>
+                        </div>
+                        <i class="fa-solid fa-gauge-high text-2xl text-slate-600"></i>
+                    </div>
+
+                    <!-- Interactive PCB Test Points -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 relative overflow-hidden">
+                        <div class="text-xs font-semibold text-slate-400 flex justify-between">
+                            <span>Simulasi Papan Mesin HP (PCB)</span>
+                            <span class="text-amber-400 font-mono">Skala: Moda Diode / Beeper</span>
+                        </div>
+
+                        <!-- Virtual PCB Board Diagram -->
+                        <div class="bg-emerald-950/40 border-2 border-emerald-800/60 rounded-xl p-4 min-h-[160px] flex flex-col justify-between relative">
+                            <div class="text-[10px] text-emerald-500 font-mono">PCB TEST POINTS (KLIK TITIK PROBE)</div>
+                            
+                            <div class="grid grid-cols-3 gap-3 my-2">
+                                <button onclick="measurePoint('vbat', 0.450, 'Jalur Utama VBAT', false)" class="dmm-point p-2 bg-slate-900 hover:bg-slate-800 border border-amber-500/40 rounded-lg text-left transition">
+                                    <div class="text-[10px] text-amber-400 font-bold">TP 1: VBAT</div>
+                                    <div class="text-[9px] text-slate-400">Jalur Utama Baterai</div>
+                                </button>
+                                <button onclick="measurePoint('vsys', 0.001, 'Jalur VPH_PWR / VSYS', true)" class="dmm-point p-2 bg-slate-900 hover:bg-slate-800 border border-rose-500/40 rounded-lg text-left transition">
+                                    <div class="text-[10px] text-rose-400 font-bold">TP 2: VSYS</div>
+                                    <div class="text-[9px] text-slate-400">Jalur Sekunder IC Power</div>
+                                </button>
+                                <button onclick="measurePoint('avdd', 0.380, 'Jalur AVDD Kamera', false)" class="dmm-point p-2 bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 rounded-lg text-left transition">
+                                    <div class="text-[10px] text-cyan-400 font-bold">TP 3: AVDD CAM</div>
+                                    <div class="text-[9px] text-slate-400">Analog Tegangan Kamera</div>
+                                </button>
+                            </div>
+
+                            <div class="flex justify-between items-center text-[10px] text-slate-400 pt-2 border-t border-emerald-900/60">
+                                <span>Probe Hitam: Ground (GND Body)</span>
+                                <span>Probe Merah: Titik Ukur</span>
+                            </div>
+                        </div>
+
+                        <!-- Multimeter LCD Display -->
+                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex items-center justify-between font-mono">
+                            <div>
+                                <div class="text-[10px] text-slate-500">NILAI HAMBATAN DALAM (DIODE)</div>
+                                <div id="dmm-value-display" class="text-2xl font-extrabold text-amber-400">. OL</div>
+                            </div>
+                            <div id="dmm-beep-indicator" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-500">
+                                <i class="fa-solid fa-volume-xmark"></i> NORM
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DMM Mentor Note -->
+                    <div id="dmm-mentor-box" class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 text-xs space-y-1 text-slate-300">
+                        <div class="font-bold text-amber-400 flex items-center space-x-1">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>Catatan Cara Mengukur:</span>
+                        </div>
+                        <p id="dmm-mentor-text">
+                            Klik salah satu titik tes (TP) pada board di atas untuk menempelkan probe multimeter. Perhatikan apakah nilai hambatan menunjukkan angka normal (~0.300 - 0.600) atau bunyi BEEP (0.001 = Short/Konslet).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 4: QUIZ & EVALUASI ==================== -->
+        <section id="tab-quiz" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 rounded-2xl border border-slate-800 space-y-2">
+                <div class="flex items-center space-x-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <span>Uji Pemahaman Praktis</span>
+                </div>
+                <h2 class="text-2xl font-extrabold text-white">Quiz Teknisi HP ASHI</h2>
+                <p class="text-slate-300 text-sm max-w-2xl">
+                    Soal-soal dirancang berdasarkan studi kasus nyata di meja kerja. Pilih jawaban terbaik lalu baca pembahasan khas mentor setelahnya.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Quiz Selector Sidebar -->
+                <div class="lg:col-span-4 space-y-3">
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+                        <h3 class="font-bold text-white text-sm pb-3 border-b border-slate-800 mb-3 flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check text-blue-400"></i>
+                            <span>Pilih Paket Quiz</span>
+                        </h3>
+                        <div class="space-y-2" id="quiz-package-list">
+                            <!-- Populated dynamic list -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Quiz Box -->
+                <div class="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6" id="quiz-active-container">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 5: VIDEO MENTORING ==================== -->
+        <section id="tab-videos" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-2">
+                <div class="flex items-center space-x-2 text-rose-400 text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-play"></i>
+                    <span>Workshop Visual</span>
+                </div>
+                <h2 class="text-2xl font-extrabold text-white">Video Mentoring Praktik Meja Kerja</h2>
+                <p class="text-slate-300 text-sm">
+                    Saksikan demonstrasi mendiagnosa kerusakan secara cermat dari Mentor Dedy Priyady.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="video-card-grid">
+                <!-- Populated dynamically -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 mt-12 py-8 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white text-xs">
+                    ASHI
+                </div>
+                <div>
+                    <div class="text-white font-bold text-sm">Akademi Servis HP Indonesia</div>
+                    <div>Proyek Resmi Buku Saku Teknisi HP Pemula &copy; 2026</div>
+                </div>
+            </div>
+            <div class="text-center sm:text-right">
+                <div>Penulis: <span class="text-amber-400 font-semibold">Dedy Priyady</span></div>
+                <div class="text-slate-500 mt-0.5">Panduan Praktis Belajar Servis HP Dari Nol Sampai Bisa</div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==================== LOGIC & DATA SCRIPT ==================== -->
+    <script>
+        /* ==================== CHAPTER DATA (10 BAB COMPLETE) ==================== */
+        const chapterData = [
+            {
+                id: 1,
+                title: "Bab 1: Menata Meja Kerja & Alat Tempur",
+                subtitle: "Peralatan utama, fungsi nyata, dan cara aman memulai tanpa merusak mesin HP",
+                readTime: "10 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Sebelum Anda memegang solder atau mengotak-atik mesin HP pelanggan, kenali dulu 'senjata' utama Anda. Meja kerja seorang teknisi bukan sekadar tempat menaruh obeng, tapi adalah laboratorium diagnostik Anda!"
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">1. Alat Wajib Meja Kerja Teknisi Pemula</h3>
+                        
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Jangan tergiur membeli alat mahal di awal. Cukup sediakan 4 senjata utama ini:
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                                <div class="text-amber-400 font-bold text-sm flex items-center space-x-2">
+                                    <i class="fa-solid fa-plug text-base"></i>
+                                    <span>1. Power Supply Digital (Minimal 15V 2A / 30V 5A)</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    <strong class="text-white">Fungsi Nyata:</strong> Pengganti baterai HP sekaligus <span class="text-amber-400">"pendeteksi denyut nadi"</span>. Melalui jarum atau angka arus (Ampere), Anda bisa tahu HP mati karena tombol rusak, software hang, atau IC konslet.
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                                <div class="text-emerald-400 font-bold text-sm flex items-center space-x-2">
+                                    <i class="fa-solid fa-gauge-high text-base"></i>
+                                    <span>2. Multimeter Digital Auto-Ranging</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    <strong class="text-white">Fungsi Nyata:</strong> Mengukur tegangan (Volt) dan hambatan dalam jalur (Diode Mode). Multimeter adalah mata Anda untuk melihat apakah jalur PCB putus atau konslet ke ground.
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                                <div class="text-rose-400 font-bold text-sm flex items-center space-x-2">
+                                    <i class="fa-solid fa-fire-burner text-base"></i>
+                                    <span>3. Blower / Hot Air Rework Station</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    <strong class="text-white">Fungsi Nyata:</strong> Melunakkan timah untuk mengangkat dan memasang komponen seperti konektor baterai, LCD, IC, serta resistor.
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                                <div class="text-cyan-400 font-bold text-sm flex items-center space-x-2">
+                                    <i class="fa-solid fa-screwdriver text-base"></i>
+                                    <span>4. Solder Station Adjust Temperature</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    <strong class="text-white">Fungsi Nyata:</strong> Menyambung kawat jumper tipis dan merapikan kaki-kaki komponen.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Analogi Khas Mentor -->
+                        <div class="bg-amber-950/30 border border-amber-500/30 p-4 rounded-xl space-y-2">
+                            <div class="font-bold text-amber-400 text-sm flex items-center space-x-2">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <span>Analogi Mentor: Tegangan vs Arus Listrik HP</span>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                "Bayangkan listrik HP seperti <strong class="text-white">sistem pipa air rumah</strong>. <br>
+                                • <strong class="text-amber-400">Tegangan (Volt)</strong> = Tekanan air dari tandon. <br>
+                                • <strong class="text-emerald-400">Arus (Ampere)</strong> = Debit air yang mengalir dalam pipa saat kran dibuka. <br>
+                                Jika kran mati tapi air terus bocor deras (Arus meloncat tinggi), berarti ada <span class="text-rose-400 font-bold">kebocoran/konslet</span> pada pipa!"
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                title: "Bab 2: Anatomi Mesin HP & Komponen Dasar",
+                subtitle: "Memahami Resistor, Kapasitor, Dioda, dan IC tanpa pusing rumus",
+                readTime: "12 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Ketika Anda membuka kaleng pelindung mesin HP, jangan panik melihat ribuan komponen mungil. Halaman ini akan membuat Anda mengenali mereka hanya dalam 5 menit."
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">3 Komponen Utama Penjaga Jalur HP</h3>
+
+                        <div class="space-y-4">
+                            <!-- Kapasitor -->
+                            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col sm:flex-row gap-4 items-start">
+                                <div class="bg-amber-500/20 text-amber-400 p-3 rounded-lg text-2xl font-bold font-mono">
+                                    [ C ]
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="text-white font-bold text-sm">Kapasitor (Warna Coklat / Abu-abu Muda)</h4>
+                                    <p class="text-xs text-slate-300 leading-relaxed">
+                                        <strong class="text-amber-400">Fungsi Mentor:</strong> Sebagai 'Tandon / Bendungan Kecil' penstabil tegangan. Kapasitor paling sering menjadi biang kerok HP Short/Konslet! Karena salah satu kakinya tersambung ke Ground (Body Mesin). Jika penyekat di dalamnya bocor, arus listrik langsung terbuang ke bodi!
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Resistor -->
+                            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col sm:flex-row gap-4 items-start">
+                                <div class="bg-blue-500/20 text-blue-400 p-3 rounded-lg text-2xl font-bold font-mono">
+                                    [ R ]
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="text-white font-bold text-sm">Resistor (Warna Hitam / Biru Gelap)</h4>
+                                    <p class="text-xs text-slate-300 leading-relaxed">
+                                        <strong class="text-blue-400">Fungsi Mentor:</strong> Sebagai 'Polisi Tidur / Rem' arus listrik. Menahan arus berlebih agar komponen peka seperti IC tidak jebol.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Induktor / Lilitan -->
+                            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col sm:flex-row gap-4 items-start">
+                                <div class="bg-emerald-500/20 text-emerald-400 p-3 rounded-lg text-2xl font-bold font-mono">
+                                    [ L ]
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="text-white font-bold text-sm">Induktor / Lilitan (Warna Hitam Tebal / Abu Kotak)</h4>
+                                    <p class="text-xs text-slate-300 leading-relaxed">
+                                        <strong class="text-emerald-400">Fungsi Mentor:</strong> Sebagai 'Jembatan Penyeimbang'. Melewatiskan arus searah DC. Sering ditemukan di sekitar IC Lampu dan IC Power.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                title: "Bab 3: Mengukur Hambatan Dalam Multimeter Like a Pro",
+                subtitle: "Jurus Moda Diode (Pengukuran Pasif) untuk menemukan konslet tanpa merusak mesin",
+                readTime: "15 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Pengukuran Pasif (Mode Diode) adalah jurus rahasia teknisi handal. Anda tidak perlu menyalakan HP, cukup gunakan nilai hambatan untuk tahu jalur mana yang bocor!"
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">Aturan Pembalikan Probe Multimeter</h3>
+
+                        <div class="bg-slate-800 p-4 rounded-xl space-y-3">
+                            <div class="flex items-center space-x-3 text-sm font-bold text-amber-400">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                                <span>Metode Ukur Pasif Diode Mode:</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                                <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                                    <strong class="text-rose-400">PROBE MERAH (+)</strong> <br>
+                                    Tancapkan / Tempelkan ke <span class="text-white font-bold">GROUND (Kaleng Mesin / Body PCB)</span>.
+                                </div>
+                                <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                                    <strong class="text-slate-200">PROBE HITAM (-)</strong> <br>
+                                    Sentuhkan ke <span class="text-white font-bold">TITIK JALUR YANG DIPERIKSA</span>.
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">Tabel Interpretasi Angka Multimeter</h3>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-300 border border-slate-800">
+                                <thead class="bg-slate-800 text-white font-bold">
+                                    <tr>
+                                        <th class="p-3 border-b border-slate-700">Nilai Layar DMM</th>
+                                        <th class="p-3 border-b border-slate-700">Kondisi Jalur</th>
+                                        <th class="p-3 border-b border-slate-700">Tindakan Teknisi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800">
+                                    <tr>
+                                        <td class="p-3 text-emerald-400 font-mono font-bold">0.300 - 0.600</td>
+                                        <td class="p-3">Jalur Normal / Baik</td>
+                                        <td class="p-3">Jalur sehat, lanjutkan ke titik lain.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 text-rose-400 font-mono font-bold">0.000 - 0.002 (BEEP!)</td>
+                                        <td class="p-3 font-bold text-rose-400">SHORT / KONSLET TOTAL</td>
+                                        <td class="p-3">Cari kapasitor bocor di jalur ini yang terhubung ke Ground!</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 text-amber-400 font-mono font-bold">OL / 1. (Over Limit)</td>
+                                        <td class="p-3 text-amber-300">Jalur PUTUS / Open Circuit</td>
+                                        <td class="p-3">Periksa kawat jumper atau hambatan resistor putus.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                title: "Bab 4: Rahasia Power Supply & Arus Gantung",
+                subtitle: "Membaca jarum/angka arus Power Supply untuk mendiagnosa jenis kerusakan mesin",
+                readTime: "15 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Power Supply adalah detektor kebohongan HP! HP mungkin terlihat diam tanpa reaksi di layar, tapi angka Ampere tidak bisa berbohong."
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">3 Jenis Gerakan Arus Diagnostik</h3>
+
+                        <div class="space-y-3">
+                            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+                                <div class="text-emerald-400 font-bold text-sm">1. Arus Normal Booting (0.00A -> Picu Saklar -> 0.08A -> 0.25A -> 0.50A+)</div>
+                                <p class="text-xs text-slate-300">
+                                    Menandakan IC Power, CPU, dan EMMC/UFS bekerja bergantian memuat sistem operasi Android/iOS.
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+                                <div class="text-amber-400 font-bold text-sm">2. Arus Gantung / Stagnan (Picu Saklar -> Arus Naik 0.03A - 0.08A -> Tetap Diam)</div>
+                                <p class="text-xs text-slate-300">
+                                    <strong class="text-white">Diagnosa Mentor:</strong> IC Power telah bekerja mengeluarkan tegangan, tapi CPU atau EMMC tidak memberikan jawaban balik (Gagal Booting / Firmware Corrupt / EMMC Rusak).
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+                                <div class="text-rose-400 font-bold text-sm">3. Arus Short Langsung (Baru Pasang Kabel PSU -> Arus Langsung Max 2A+ & BEEP)</div>
+                                <p class="text-xs text-slate-300">
+                                    <strong class="text-white">Diagnosa Mentor:</strong> Konslet Jalur Utama VBAT / VSYS. Ada komponen bocor langsung sebelum saklar power ditekan.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                title: "Bab 5: Kasus HP Mati Total (Matot)",
+                subtitle: "Flowchart penanganan terstruktur dari cek saklar hingga IC Power",
+                readTime: "18 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Jangan langsung memvonis IC Power terbakar saat dapat HP mati total! Lakukan pemeriksaan secara sistematis sesuai urutan flowchart ini."
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">Flowchart Diagnosa Matot Bertahap</h3>
+
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 font-mono text-xs">
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-lg text-white font-bold text-center">
+                                LANGKAH 1: Cek Baterai Fisik & Tegangan (Minimal 3.7 V)
+                            </div>
+                            <div class="text-center text-blue-400"><i class="fa-solid fa-arrow-down"></i> Jika Tegangan Ada</div>
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-lg text-white font-bold text-center">
+                                LANGKAH 2: Hubungkan ke Power Supply (Cek Arus Standby)
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-center">
+                                <div class="p-2 bg-rose-950/50 border border-rose-800 rounded text-rose-300">
+                                    Jika Langsung Short (Konslet VBAT)<br>-> Cari Kapasitor Bocor VBAT
+                                </div>
+                                <div class="p-2 bg-emerald-950/50 border border-emerald-800 rounded text-emerald-300">
+                                    Jika 0.00A (Normal Standby)<br>-> Tekan Tombol Power
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 6,
+                title: "Bab 6: Troubleshooting Layar & Sentuh (LCD/Touch)",
+                subtitle: "Membedakan kerusakan tampilan gambat, lampu latar, dan panel touchscreen",
+                readTime: "12 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Layar gelap belum tentu LCD rusak! Bisa jadi hanya lampu latar (backlight) yang mati, sementara gambar aslinya ada di belakang."
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">Trik Senter Layar Gelap</h3>
+
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Jika HP bergetar atau ada suara notifikasi tapi layar gelap gulita: <br>
+                            Sorot layar HP menggunakan <strong class="text-amber-400">senter terang</strong> dari sudut miring. Jika terlihat bayangan logo atau teks samar, berarti <span class="text-emerald-400 font-bold">Mesin & LCD Normal</span>, yang bermasalah hanyalah <span class="text-rose-400 font-bold">Jalur Tegangan Lampu (VREG / VLED)</span>!
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                title: "Bab 7: Kasus Kamera (Analog Tegangan AVDD & DVDD)",
+                subtitle: "Bahasa Sederhana Memahami Tegangan Kamera yang Sering Bikin Bingung Pemula",
+                readTime: "14 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Jangan dihafal istilah rumit seperti AVDD, DVDD, IOVDD! Mari kita pahami dengan cara paling sederhana di dunia."
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">Analogi Manusia untuk Kamera HP</h3>
+
+                        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-4">
+                            <p class="text-sm text-slate-200 leading-relaxed">
+                                Bukannya menulis definisi kaku seperti dosen: <br>
+                                <em class="text-slate-400 font-mono text-xs">"AVDD merupakan tegangan analog suplai daya sensor kamera..."</em> (Bikin pusing pemula!)
+                            </p>
+
+                            <div class="p-4 bg-amber-950/40 border border-amber-500/40 rounded-xl space-y-2">
+                                <div class="text-amber-400 font-bold text-sm flex items-center space-x-2">
+                                    <i class="fa-solid fa-eye"></i>
+                                    <span>Penjelasan Gaya Mentor ASHI:</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+                                    "Bayangkan kamera HP itu seperti <strong class="text-amber-400">Mata Manusia</strong>.<br><br>
+                                    • <strong class="text-cyan-400">AVDD (Analog Voltage)</strong> = Tenaga Otot Mata. Jika AVDD hilang... mata HP memang masih terpasang fisik di tempatnya, tapi <span class="text-rose-400 font-bold">kamera tidak akan bisa melihat (Gagal Buka / Black Screen)</span>.<br><br>
+                                    • <strong class="text-emerald-400">DVDD (Digital Voltage)</strong> = Syaraf Otak yang Mengolah Gambar. Jika DVDD bermasalah... gambar bisa patah-patah, garis-garis, atau aplikasi kamera langsung terkeluar (Force Close)."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                title: "Bab 8: Sinyal & Jaringan (PA, WTR, Transceiver)",
+                subtitle: "Menganalisa kasus panggilan darurat, sinyal lemah, dan WiFi tidak bisa diaktifkan",
+                readTime: "15 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Sinyal hilang bukan selalu IC PA rusak! Seringkali hanya karena antena luar tidak menempel rapi ke kancing casing."
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">3 Komponen Kunci Sinyal HP</h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 text-xs space-y-1">
+                                <div class="text-amber-400 font-bold">IC PA (Power Amplifier)</div>
+                                <p class="text-slate-300">Penguat daya pemancar sinyal ke tower seluler.</p>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 text-xs space-y-1">
+                                <div class="text-cyan-400 font-bold">IC Transceiver (WTR)</div>
+                                <p class="text-slate-300">Pengolah frekuensi suara dan data digital.</p>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 text-xs space-y-1">
+                                <div class="text-emerald-400 font-bold">Kabel Coaxial Antena</div>
+                                <p class="text-slate-300">Pipa penyalur sinyal dari PCB ke rangka luar.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                title: "Bab 9: Baterai & Charging Circuit (IC Charger)",
+                subtitle: "Solusi HP di-cas tidak nambah, indikator petir melayang, dan HP hangat saat di-cas",
+                readTime: "15 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Kasus charger 'Palsu' (Diisi 2 jam persen baterai malah berkurang) adalah makanan sehari-hari teknisi. Mari pelajari jalur VBUS 5V!"
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">Jalur Pengisian Daya VBUSA & OVP</h3>
+
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Arus charger masuk 5 Volt melalui konektor Type-C/Micro USB -> Melalui <strong class="text-amber-400">IC OVP (Over Voltage Protection)</strong> -> Masuk ke <strong class="text-emerald-400">IC Charger</strong> -> Keluar menjadi <strong class="text-cyan-400">VBAT (~4.2V)</strong> untuk mengisi sel baterai.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                title: "Bab 10: Trik Solder/Blower & Jurus Meja Servis",
+                subtitle: "Kombinasi setelan angin & panas blower serta etika profesional teknisi ASHI",
+                readTime: "20 Menit",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-950/40 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                            <h4 class="font-bold text-blue-300 text-sm uppercase tracking-wide">Kata Mentor - Dedy Priyady:</h4>
+                            <p class="text-slate-300 text-sm italic mt-1">
+                                "Selamat! Anda telah sampai di bab pamungkas. Di bab ini kita padukan ilmu diagnostik dengan keterampilan tangan memasang komponen mikro."
+                            </p>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-2">Setelan Standar Blower Aman Mesin</h3>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+                                <div class="text-amber-400 font-bold">Mengangkat Konektor Plastik (LCD/Baterai)</div>
+                                <p class="text-slate-300">Suhu: <strong class="text-white">280°C - 300°C</strong> | Angin: <strong class="text-white">1.5 - 2.0</strong> (Gunakan timah cair low melt agar plastik tidak meleleh).</p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-1">
+                                <div class="text-rose-400 font-bold">Cetak & Pasang IC Kaleng</div>
+                                <p class="text-slate-300">Suhu: <strong class="text-white">340°C - 360°C</strong> | Angin: <strong class="text-white">2.5 - 3.5</strong> (Putar blower memutar secara konsisten, jangan diam di satu titik!).</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        /* ==================== QUIZ DATA ==================== */
+        const quizPackages = [
+            {
+                id: "q1",
+                chapterId: 1,
+                title: "Quiz Bab 1 & 2: Alat & Komponen Mesin",
+                questions: [
+                    {
+                        q: "Jika sebuah kapasitor mungil pada jalur utama mesin HP mengalami kebocoran internal (penyekatnya jebol ke ground), apakah yang akan terjadi?",
+                        options: [
+                            "HP akan menyala lebih cepat",
+                            "Jalur mengalami Short / Konslet total sehingga HP Mati Total",
+                            "Sinyal HP bertambah kuat",
+                            "Kamera menjadi lebih jernih"
+                        ],
+                        correct: 1,
+                        explanation: "Kapasitor memiliki satu kaki di jalur tegangan dan satu kaki di Ground. Jika bocor, arus listrik langsung terbuang ke bodi (Short Total)."
+                    },
+                    {
+                        q: "Dalam analogi mentorku mengenai kamera HP, jika tegangan AVDD hilang, apakah dampaknya?",
+                        options: [
+                            "Kamera masih bisa memotret tapi warna hitam putih",
+                            "Mata kamera terpasang secara fisik, tapi kamera tidak bisa melihat / layar kamera hitam",
+                            "Baterai HP langsung meledak",
+                            "Suara speaker mendengung"
+                        ],
+                        correct: 1,
+                        explanation: "Sesuai analogi Dedy Priyady: AVDD bagaikan otot penyuplai daya mata. Tanpa AVDD, kamera tidak dapat bekerja."
+                    }
+                ]
+            },
+            {
+                id: "q2",
+                chapterId: 3,
+                title: "Quiz Bab 3 & 4: Multimeter & Power Supply",
+                questions: [
+                    {
+                        q: "Pada pengukuran Diode Mode (Pasif), di manakah Anda harus menempelkan Probe MERAH (+) Multimeter?",
+                        options: [
+                            "Ke jalur positif baterai",
+                            "Ke Ground / Kaleng pelindung mesin PCB",
+                            "Dibiarkan melayang di udara",
+                            "Ke konektor charger"
+                        ],
+                        correct: 1,
+                        explanation: "Metode ukur pasif membalik probe: Probe Merah disambung ke Ground, dan Probe Hitam menyentuh titik uji."
+                    }
+                ]
+            }
+        ];
+
+        /* ==================== VIDEO DATA ==================== */
+        const videoTutorials = [
+            {
+                id: "v1",
+                title: "Panduan Mendiagnosa HP Matot Arus Gantung",
+                duration: "12:45",
+                tag: "Power Supply",
+                desc: "Langkah mendeteksi apakah kerusakan ada pada software, IC Power, atau chip EMMC."
+            },
+            {
+                id: "v2",
+                title: "Cara Mencari Kapasitor Konslet Menggunakan Rosin & Multimeter",
+                duration: "08:30",
+                tag: "Troubleshooting",
+                desc: "Metode mengasapi PCB dengan rosin untuk menemukan komponen panas dalam hitungan detik."
+            },
+            {
+                id: "v3",
+                title: "Trik Jumper Kawat Tipis Jalur Lampu LCD Putus",
+                duration: "15:10",
+                tag: "Solder Practice",
+                desc: "Teknik menyambung kawat enamel 0.02mm di bawah lup mikroskop."
+            }
+        ];
+
+
+        /* ==================== APP STATE MANAGEMENT ==================== */
+        let state = {
+            currentChapterIndex: 0,
+            completedChapters: new Set([1]), // Bab 1 completed default
+            quizScores: {},
+            simCount: 0
+        };
+
+        // DOM Load Initializer
+        window.onload = function() {
+            renderChapterList();
+            renderDashboardGrid();
+            loadChapter(0);
+            renderQuizList();
+            loadQuiz('q1');
+            renderVideos();
+            updateStats();
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+        };
+
+        /* Switch Tab Logic */
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-400', 'bg-slate-800');
+                btn.classList.add('text-slate-300');
+            });
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('text-blue-400', 'bg-slate-800');
+                activeNav.classList.remove('text-slate-300');
+            }
+
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Render Dashboard Chapter Roadmap */
+        function renderDashboardGrid() {
+            const container = document.getElementById('dashboard-chapter-grid');
+            container.innerHTML = chapterData.map((ch, idx) => {
+                const isCompleted = state.completedChapters.has(ch.id);
+                return `
+                    <div onclick="switchTab('book'); loadChapter(${idx});" class="bg-slate-800/60 hover:bg-slate-800 p-4 rounded-xl border ${isCompleted ? 'border-emerald-500/40' : 'border-slate-700/60'} transition cursor-pointer flex items-start justify-between space-x-3 group">
+                        <div class="space-y-1">
+                            <div class="text-[10px] font-bold ${isCompleted ? 'text-emerald-400' : 'text-blue-400'} uppercase">
+                                ${isCompleted ? '<i class="fa-solid fa-circle-check"></i> Selesai' : 'Modul ' + (idx + 1)}
+                            </div>
+                            <h4 class="text-xs font-bold text-white group-hover:text-blue-300 transition line-clamp-1">${ch.title}</h4>
+                            <p class="text-[11px] text-slate-400 line-clamp-2">${ch.subtitle}</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-white pt-1"></i>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* Render Sidebar Chapter List in Book View */
+        function renderChapterList() {
+            const container = document.getElementById('chapter-list');
+            container.innerHTML = chapterData.map((ch, idx) => {
+                const isActive = idx === state.currentChapterIndex;
+                const isCompleted = state.completedChapters.has(ch.id);
+                return `
+                    <button onclick="loadChapter(${idx})" class="w-full text-left p-3 rounded-xl transition flex items-center justify-between text-xs ${isActive ? 'bg-blue-600 text-white font-bold shadow-lg shadow-blue-600/30' : 'bg-slate-800/40 hover:bg-slate-800 text-slate-300'}">
+                        <div class="flex items-center space-x-2.5 overflow-hidden">
+                            <span class="${isCompleted ? 'text-emerald-400' : (isActive ? 'text-white' : 'text-slate-500')} font-mono">
+                                ${isCompleted ? '<i class="fa-solid fa-check"></i>' : (idx + 1) + '.'}
+                            </span>
+                            <span class="truncate">${ch.title}</span>
+                        </div>
+                        <span class="text-[10px] opacity-70">${ch.readTime}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        /* Load Specific Chapter into Reader */
+        function loadChapter(idx) {
+            state.currentChapterIndex = idx;
+            renderChapterList();
+            const ch = chapterData[idx];
+            const isCompleted = state.completedChapters.has(ch.id);
+
+            const container = document.getElementById('chapter-content-container');
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Akademi Servis HP Indonesia &bull; Mentor Dedy Priyady</span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">${ch.title}</h2>
+                            <p class="text-xs text-slate-400 mt-0.5">${ch.subtitle}</p>
+                        </div>
+                        <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">
+                            <i class="fa-solid fa-clock text-blue-400 mr-1"></i> ${ch.readTime}
+                        </span>
+                    </div>
+
+                    <!-- Chapter Rich Body -->
+                    <div class="prose prose-invert max-w-none">
+                        ${ch.content}
+                    </div>
+
+                    <!-- Actions Footer -->
+                    <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button onclick="toggleCompleteChapter(${ch.id})" class="w-full sm:w-auto ${isCompleted ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-500/40' : 'bg-blue-600 hover:bg-blue-500 text-white'} font-bold px-5 py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2">
+                            <i class="fa-solid ${isCompleted ? 'fa-circle-check' : 'fa-check'}"></i>
+                            <span>${isCompleted ? 'Selesai Dibaca (Klik untuk Batal)' : 'Tandai Bab Selesai'}</span>
+                        </button>
+
+                        <div class="flex space-x-2 w-full sm:w-auto">
+                            ${idx > 0 ? `<button onclick="loadChapter(${idx - 1})" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2.5 rounded-xl text-xs font-medium">Bab Sebelumnya</button>` : ''}
+                            ${idx < chapterData.length - 1 ? `<button onclick="loadChapter(${idx + 1})" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold">Bab Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleCompleteChapter(id) {
+            if (state.completedChapters.has(id)) {
+                state.completedChapters.delete(id);
+            } else {
+                state.completedChapters.add(id);
+            }
+            updateStats();
+            renderDashboardGrid();
+            loadChapter(state.currentChapterIndex);
+        }
+
+        function updateStats() {
+            const count = state.completedChapters.size;
+            const pct = Math.round((count / chapterData.length) * 100);
+            document.getElementById('stat-progress-pct').innerText = pct + '%';
+            document.getElementById('stat-progress-count').innerText = count;
+            document.getElementById('stat-progress-bar').style.width = pct + '%';
+
+            // Quiz Scores Avg
+            const scores = Object.values(state.quizScores);
+            const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
+            document.getElementById('stat-quiz-score').innerText = avg;
+            document.getElementById('stat-sim-count').innerText = state.simCount;
+
+            if (pct === 100) {
+                document.getElementById('stat-cert-status').innerHTML = `
+                    <span class="text-emerald-400 flex items-center space-x-1">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>LULUS SERTIFIKASI ASHI</span>
+                    </span>
+                `;
+            }
+        }
+
+
+        /* ==================== WORKBENCH SIMULATOR LOGIC ==================== */
+        let psuState = {
+            isPoweredOn: false,
+            voltage: 4.00,
+            scenario: 'normal'
+        };
+
+        function runPsuScenario() {
+            psuState.scenario = document.getElementById('psu-scenario-select').value;
+            resetPsu();
+        }
+
+        function triggerPsuPowerButton() {
+            psuState.isPoweredOn = !psuState.isPoweredOn;
+            state.simCount++;
+            updateStats();
+
+            const currentDisp = document.getElementById('psu-current-display');
+            const statusTag = document.getElementById('psu-status-tag');
+            const meterBar = document.getElementById('psu-meter-bar');
+            const mentorText = document.getElementById('psu-mentor-text');
+            const btn = document.getElementById('psu-power-btn');
+
+            if (!psuState.isPoweredOn) {
+                resetPsu();
+                return;
+            }
+
+            btn.classList.add('bg-rose-600', 'hover:bg-rose-500');
+            btn.classList.remove('bg-blue-600', 'hover:bg-blue-500');
+            btn.querySelector('span').innerText = "Lepas Tombol Power HP";
+
+            switch (psuState.scenario) {
+                case 'normal':
+                    statusTag.innerText = "Booting Android (Normal)";
+                    mentorText.innerHTML = "<strong class='text-emerald-400'>Analisa Normal:</strong> Arus meloncat dari 0.08A -> 0.25A -> 0.48A. Ini menandakan CPU dan memori EMMC sedang bekerja booting.";
+                    let val = 0.08;
+                    currentDisp.innerText = val.toFixed(3);
+                    meterBar.style.width = '25%';
+                    setTimeout(() => {
+                        if (psuState.isPoweredOn) {
+                            currentDisp.innerText = "0.345";
+                            meterBar.style.width = '60%';
+                        }
+                    }, 800);
+                    break;
+
+                case 'matot_gantung':
+                    statusTag.innerText = "Gantung / CPU Stagnan";
+                    currentDisp.innerText = "0.055";
+                    meterBar.style.width = '15%';
+                    mentorText.innerHTML = "<strong class='text-amber-400'>Analisa Arus Gantung:</strong> Arus tertahan di 0.055A dan tidak bergerak sama sekali. IC Power telah memberikan listrik, tetapi CPU/EMMC tidak merespons (Perlu Cek Flash / Reball CPU).";
+                    break;
+
+                case 'short_vbat':
+                    statusTag.innerText = "SHORT TOTAL (KONSLET)";
+                    currentDisp.innerText = "2.100!";
+                    meterBar.style.width = '100%';
+                    meterBar.classList.add('bg-rose-500');
+                    mentorText.innerHTML = "<strong class='text-rose-400'>Analisa Short Total:</strong> Arus langsung meloncat ke batas maksimal 2 Ampere! Komponen di jalur VBAT konslet ke Ground. Raba komponen panas dengan rosine / tiner.";
+                    break;
+
+                case 'no_response':
+                    statusTag.innerText = "Mati Total Nihil";
+                    currentDisp.innerText = "0.000";
+                    meterBar.style.width = '0%';
+                    mentorText.innerHTML = "<strong class='text-slate-400'>Analisa Arus 0.00A:</strong> Tidak ada arus mengalir sama sekali saat tombol power ditekan. Kemungkinan saklar power putus jalur atau IC Power tidak mendapat pasokan baterai.";
+                    break;
+            }
+        }
+
+        function resetPsu() {
+            psuState.isPoweredOn = false;
+            document.getElementById('psu-current-display').innerText = "0.000";
+            document.getElementById('psu-status-tag').innerText = "Standby (Power OFF)";
+            document.getElementById('psu-meter-bar').style.width = '0%';
+            document.getElementById('psu-mentor-text').innerText = "Pilih salah satu skenario lalu tekan tombol Power HP untuk menguji analisa.";
+            
+            const btn = document.getElementById('psu-power-btn');
+            btn.classList.remove('bg-rose-600', 'hover:bg-rose-500');
+            btn.classList.add('bg-blue-600', 'hover:bg-blue-500');
+            btn.querySelector('span').innerText = "Tekan Tombol Power HP";
+        }
+
+
+        /* DMM Multimeter Simulation */
+        function measurePoint(pointName, value, label, isShort) {
+            state.simCount++;
+            updateStats();
+
+            const disp = document.getElementById('dmm-value-display');
+            const beep = document.getElementById('dmm-beep-indicator');
+            const mentorBox = document.getElementById('dmm-mentor-text');
+
+            disp.innerText = value.toFixed(3);
+
+            if (isShort) {
+                beep.className = "text-xs font-bold px-3 py-1 rounded-full bg-rose-500 text-white pulse-subtle";
+                beep.innerHTML = '<i class="fa-solid fa-volume-high"></i> BEEP! SHORT';
+                mentorBox.innerHTML = `<strong class="text-rose-400">Peringatan konslet pada ${label}:</strong> Multimeter berbunyi BEEP nyaring dan nilai hambatan mendekati 0.000! Komponen pada jalur ini mengalami konslet penuh.`;
+            } else {
+                beep.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+                beep.innerHTML = '<i class="fa-solid fa-check"></i> NORMAL';
+                mentorBox.innerHTML = `<strong class="text-emerald-400">Pengukuran Normal pada ${label}:</strong> Nilai hambatan dalam menunjukkan ${value.toFixed(3)} (rentang sehat 0.300 - 0.600). Jalur ini tidak konslet.`;
+            }
+        }
+
+
+        /* ==================== QUIZ LOGIC ==================== */
+        function renderQuizList() {
+            const container = document.getElementById('quiz-package-list');
+            container.innerHTML = quizPackages.map(pkg => `
+                <button onclick="loadQuiz('${pkg.id}')" class="w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-800/40 hover:bg-slate-800 transition space-y-1">
+                    <div class="text-xs font-bold text-white">${pkg.title}</div>
+                    <div class="text-[10px] text-slate-400">${pkg.questions.length} Pertanyaan Kasus</div>
+                </button>
+            `).join('');
+        }
+
+        function loadQuiz(pkgId) {
+            const pkg = quizPackages.find(p => p.id === pkgId);
+            const container = document.getElementById('quiz-active-container');
+
+            let qHtml = pkg.questions.map((q, qIdx) => `
+                <div class="space-y-3 bg-slate-950 p-5 rounded-xl border border-slate-800">
+                    <div class="text-xs text-amber-400 font-bold uppercase">Soal Kasus #${qIdx + 1}</div>
+                    <p class="text-sm text-white font-medium">${q.q}</p>
+                    
+                    <div class="space-y-2 pt-2">
+                        ${q.options.map((opt, oIdx) => `
+                            <label class="flex items-center space-x-3 p-3 bg-slate-900 rounded-lg border border-slate-800 hover:border-slate-700 cursor-pointer text-xs text-slate-300">
+                                <input type="radio" name="q_${pkgId}_${qIdx}" value="${oIdx}" class="text-blue-600 focus:ring-0">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+
+                    <div id="quiz-explain-${pkgId}-${qIdx}" class="hidden p-3 rounded-lg text-xs space-y-1"></div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="space-y-5">
+                    <div class="border-b border-slate-800 pb-3">
+                        <h3 class="text-lg font-bold text-white">${pkg.title}</h3>
+                        <p class="text-xs text-slate-400">Jawab semua pertanyaan di bawah ini lalu tekan tombol Evaluasi</p>
+                    </div>
+
+                    ${qHtml}
+
+                    <button onclick="evaluateQuiz('${pkgId}')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl transition text-xs shadow-lg shadow-blue-600/30">
+                        Kirim & Evaluasi Jawaban
+                    </button>
+                </div>
+            `;
+        }
+
+        function evaluateQuiz(pkgId) {
+            const pkg = quizPackages.find(p => p.id === pkgId);
+            let correctCount = 0;
+
+            pkg.questions.forEach((q, qIdx) => {
+                const selected = document.querySelector(`input[name="q_${pkgId}_${qIdx}"]:checked`);
+                const explainBox = document.getElementById(`quiz-explain-${pkgId}-${qIdx}`);
+                explainBox.classList.remove('hidden');
+
+                if (selected && parseInt(selected.value) === q.correct) {
+                    correctCount++;
+                    explainBox.className = "p-3 rounded-lg text-xs space-y-1 bg-emerald-950/50 border border-emerald-500/40 text-emerald-300";
+                    explainBox.innerHTML = `<strong><i class="fa-solid fa-circle-check"></i> Tepat Sekali!</strong><br>${q.explanation}`;
+                } else {
+                    explainBox.className = "p-3 rounded-lg text-xs space-y-1 bg-rose-950/50 border border-rose-500/40 text-rose-300";
+                    explainBox.innerHTML = `<strong><i class="fa-solid fa-circle-xmark"></i> Kurang Tepat.</strong><br>${q.explanation}`;
+                }
+            });
+
+            const score = Math.round((correctCount / pkg.questions.length) * 100);
+            state.quizScores[pkgId] = score;
+            updateStats();
+        }
+
+
+        /* ==================== VIDEO GALLERY RENDER ==================== */
+        function renderVideos() {
+            const container = document.getElementById('video-card-grid');
+            container.innerHTML = videoTutorials.map(v => `
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-slate-700 transition">
+                    <div class="relative bg-slate-950 h-40 flex items-center justify-center">
+                        <i class="fa-solid fa-play text-4xl text-rose-500 group-hover:scale-110 transition"></i>
+                        <span class="absolute bottom-2 right-2 bg-slate-900/80 px-2 py-0.5 rounded text-[10px] text-slate-300 font-mono">${v.duration}</span>
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <span class="text-[10px] font-bold bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20">${v.tag}</span>
+                        <h4 class="text-sm font-bold text-white group-hover:text-blue-300 transition">${v.title}</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">${v.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
+
+
