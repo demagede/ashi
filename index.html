@@ -8,8 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -52,6 +50,13 @@
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
+        }
+        @keyframes smoke {
+            0% { transform: translateY(0) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-40px) scale(2.5); opacity: 0; }
+        }
+        .animate-smoke {
+            animation: smoke 2.5s infinite ease-out;
         }
     </style>
 </head>
@@ -241,40 +246,6 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="dashboard-chapter-grid">
                     <!-- Dynamic rendering via JS -->
-                </div>
-            </div>
-
-            <!-- Commitments Banner -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <h3 class="text-base font-bold text-amber-400 flex items-center space-x-2 mb-4">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <span>Komitmen Metode Belajar ASHI & Mentor Dedy Priyady</span>
-                </h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
-                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-comments text-blue-400 text-lg mb-1"></i>
-                        <div class="text-xs font-bold text-white">Bahasa Sederhana</div>
-                    </div>
-                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-image text-emerald-400 text-lg mb-1"></i>
-                        <div class="text-xs font-bold text-white">Banyak Analog Visual</div>
-                    </div>
-                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-screwdriver text-amber-400 text-lg mb-1"></i>
-                        <div class="text-xs font-bold text-white">Banyak Praktik</div>
-                    </div>
-                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-book-bookmark text-rose-400 text-lg mb-1"></i>
-                        <div class="text-xs font-bold text-white">Minimalis Teori Teoretis</div>
-                    </div>
-                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-sitemap text-purple-400 text-lg mb-1"></i>
-                        <div class="text-xs font-bold text-white">Flowchart Logika</div>
-                    </div>
-                    <div class="p-3 bg-slate-800/60 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-briefcase text-cyan-400 text-lg mb-1"></i>
-                        <div class="text-xs font-bold text-white">Studi Kasus Nyata</div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -499,11 +470,11 @@
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-2">
                 <div class="flex items-center space-x-2 text-rose-400 text-xs font-bold uppercase tracking-wider">
                     <i class="fa-solid fa-circle-play"></i>
-                    <span>Workshop Visual</span>
+                    <span>Workshop Visual Interaktif</span>
                 </div>
                 <h2 class="text-2xl font-extrabold text-white">Video Mentoring Praktik Meja Kerja</h2>
                 <p class="text-slate-300 text-sm">
-                    Saksikan demonstrasi mendiagnosa kerusakan secara cermat dari Mentor Dedy Priyady. Klik kartu video untuk mulai memutar.
+                    Saksikan animasi visualisasi praktik meja kerja lengkap dengan narasi suara mentor dan petunjuk langkah demi langkah.
                 </p>
             </div>
 
@@ -515,41 +486,35 @@
 
     </main>
 
-    <!-- Modal Interactive Video Player (Dual Mode YouTube Embed + Interactive Animation) -->
-    <div id="video-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-5">
+    <!-- Modal Interactive Video Workshop Player -->
+    <div id="video-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-5">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[92vh]">
             
             <!-- Header Modal & Mode Switcher -->
             <div class="p-3 sm:p-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 bg-slate-900">
                 <div class="flex items-center space-x-2 overflow-hidden">
                     <span class="bg-rose-500/20 text-rose-400 text-[11px] px-2.5 py-1 rounded font-bold border border-rose-500/30 shrink-0 flex items-center space-x-1">
-                        <i class="fa-solid fa-video"></i>
+                        <i class="fa-solid fa-play"></i>
                         <span id="video-modal-tag">Mentoring</span>
                     </span>
                     <h3 id="video-modal-title" class="font-bold text-white text-sm sm:text-base truncate">Judul Video</h3>
                 </div>
 
-                <!-- Mode Selector -->
-                <div class="flex items-center space-x-1.5">
-                    <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex space-x-1 text-xs">
-                        <button id="btn-mode-stream" onclick="switchVideoPlayerMode('stream')" class="px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 bg-rose-600 text-white">
-                            <i class="fa-brands fa-youtube"></i>
-                            <span class="hidden sm:inline">Streaming Video</span>
-                        </button>
-                        <button id="btn-mode-sim" onclick="switchVideoPlayerMode('simulation')" class="px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 text-slate-400 hover:text-white">
-                            <i class="fa-solid fa-laptop-code"></i>
-                            <span class="hidden sm:inline">Simulasi Animasi</span>
-                        </button>
-                    </div>
-                    <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white p-1.5 text-lg font-bold">
+                <!-- Controls Right -->
+                <div class="flex items-center space-x-2">
+                    <button id="speech-tts-btn" onclick="toggleVoiceAudio()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 text-xs px-3 py-1.5 rounded-xl font-bold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-volume-high" id="tts-icon"></i>
+                        <span id="tts-label">Suara Mentor: AKTIF</span>
+                    </button>
+                    <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white p-1.5 text-xl font-bold">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Video Player Dynamic View Area -->
-            <div id="player-dynamic-viewport" class="bg-black relative aspect-video flex items-center justify-center overflow-hidden">
-                <!-- Content injected via JavaScript: Iframe YouTube OR Animated Workshop Canvas -->
+            <!-- Video Player Visual Canvas Area (100% Native Guaranteed to Work) -->
+            <div id="player-dynamic-viewport" class="bg-slate-950 relative aspect-video flex items-center justify-center overflow-hidden border-b border-slate-800">
+                <!-- Injected via JavaScript Animated Player -->
             </div>
 
             <!-- Video Info & Mentoring Notes -->
@@ -1080,66 +1045,114 @@
             }
         ];
 
-        /* ==================== VIDEO TUTORIALS DATA ==================== */
+        /* ==================== VIDEO WORKSHOP DATA ==================== */
         const videoTutorials = [
             {
                 id: "v1",
-                title: "Panduan Mendiagnosa HP Matot Arus Gantung",
-                duration: "12:45",
-                tag: "Power Supply",
-                embedId: "L1c9IUkxO1A",
-                desc: "Langkah mendeteksi apakah kerusakan ada pada software, IC Power, atau chip EMMC melalui pembacaan pergerakan jarum arus PSU.",
-                simStepCaptions: [
-                    "Step 1: Sambungkan konektor power supply ke PCB HP pada tegangan 4.0V VBAT.",
-                    "Step 2: Tekan tombol Power HP sambil memantau jarum arus Ampere.",
-                    "Step 3: Jarum meloncat ke 0.05A lalu berhenti diam (Arus Gantung).",
-                    "Step 4: Diagnosa Mentor: IC Power normal, namun CPU/EMMC gagal membaca firmware."
+                title: "Workshop Visual: Mendiagnosa HP Matot Arus Gantung",
+                duration: "04:00",
+                tag: "Power Supply Analyser",
+                icon: "fa-plug",
+                desc: "Demonstrasi mendiagnosa HP mati total dengan pembacaan pergerakan arus Power Supply Digital.",
+                simSteps: [
+                    {
+                        title: "1. Sambung Probe PSU ke Connector Baterai PCB",
+                        subtitle: "Atur voltase Power Supply tepat pada 4.0 Volt (Standar VBAT HP).",
+                        psuVal: "0.000 A",
+                        visualType: "psu_standby",
+                        speechText: "Halo kawan teknisi. Langkah pertama, set voltase Power Supply di empat koma nol volt, lalu sambung probe ke jalur baterai."
+                    },
+                    {
+                        title: "2. Tekan Tombol Power & Cek Reaksi Arus Ampere",
+                        subtitle: "Saat saklar dipicu, perhatikan apakah arus meloncat lalu stagnan.",
+                        psuVal: "0.055 A",
+                        visualType: "psu_stuck",
+                        speechText: "Saat tombol power ditekan, jarum arus meloncat ke nol koma nol lima lima ampere dan diam gantung. Ini menandakan IC Power sudah mengeluarkan tegangan, tapi CPU gagal memuat sistem."
+                    },
+                    {
+                        title: "3. Penjelasan Diagnosa & Solusi Mentor",
+                        subtitle: "Kerusakan ada pada sektor CPU / Firmware Corrupt / Chip EMMC UFS.",
+                        psuVal: "0.055 A",
+                        visualType: "cpu_diag",
+                        speechText: "Kesimpulannya: Jangan buru-buru vonis IC Power terbakar! Masalah arus gantung nol koma nol lima ini biasanya karena memori EMMC corrupt atau kaki CPU retak."
+                    }
                 ],
                 timestamps: [
-                    "00:30 - Persiapan Kabel Power Supply & Setting Voltage 4.0V",
-                    "03:15 - Menghubungkan Probe ke Konektor Baterai PCB",
-                    "06:20 - Menekan Saklar Power & Mengamati Arus Stagnan (0.05A)",
-                    "09:40 - Kesimpulan Diagnosa & Rekomendasi Langkah Perbaikan EMMC"
+                    "00:00 - Kalibrasi Tegangan PSU 4.0V",
+                    "01:30 - Penekanan Saklar Power & Pembacaan 0.055A",
+                    "03:00 - Kesimpulan Diagnosa CPU vs EMMC"
                 ]
             },
             {
                 id: "v2",
-                title: "Trik Mencari Kapasitor Konslet Menggunakan Rosin",
-                duration: "08:30",
-                tag: "Troubleshooting",
-                embedId: "5a25_2p7T28",
-                desc: "Metode mengasapi PCB dengan asap rosin untuk menemukan komponen panas penyebab short circuit dalam hitungan detik.",
-                simStepCaptions: [
-                    "Step 1: Lumuri mata solder panas dengan batu rosin cair hingga mengeluarkam asap putih.",
-                    "Step 2: Asapi permukaan komponen sekitar IC Power hingga memutih.",
-                    "Step 3: Suntikkan tegangan terbatas 1.5V dari Power Supply ke jalur short.",
-                    "Step 4: Amati kapasitor yang meleleh duluan, itu adalah biang kerok konslet!"
+                title: "Workshop Visual: Trik Deteksi Short Menggunakan Asap Rosin",
+                duration: "03:30",
+                tag: "Troubleshooting Konslet",
+                icon: "fa-fire-burner",
+                desc: "Teknik mengasapi PCB dengan rosin cair untuk menemukan kapasitor panas yang bocor.",
+                simSteps: [
+                    {
+                        title: "1. Pengasapan Lapisan Komponen PCB",
+                        subtitle: "Tempelkan mata solder panas ke batu rosin hingga asap putih melapisi kapasitor.",
+                        psuVal: "0.000 A",
+                        visualType: "rosin_smoke",
+                        speechText: "Langkah pertama, lelehkan batu rosin dengan ujung solder panas hingga asap putih tebal melapisi deretan kapasitor sekitar IC."
+                    },
+                    {
+                        title: "2. Suntik Tegangan Terbatas (Short Finder)",
+                        subtitle: "Berikan tegangan 1.5 Volt ke jalur yang mengalami konslet penuh.",
+                        psuVal: "2.100 A",
+                        visualType: "rosin_melt",
+                        speechText: "Selanjutnya, suntikkan tegangan satu koma lima volt ke jalur yang konslet. Komponen yang bocor akan langsung panas dan mencairkan asap rosin!"
+                    },
+                    {
+                        title: "3. Eksekusi Pencabutan Kapasitor Bocor",
+                        subtitle: "Kapasitor biang kerok ditemukan karena rosinnya meleleh duluan.",
+                        psuVal: "0.000 A",
+                        visualType: "rosin_done",
+                        speechText: "Lihat! Kapasitor C204 langsung meleleh asap rosinnya. Tinggal kita congkel dengan pinset, dan mesin HP kembali normal!"
+                    }
                 ],
                 timestamps: [
-                    "01:00 - Pengenalan Bahan Rosin & Solder Station",
-                    "02:40 - Cara Mengasapi Komponen Sekitar IC Power",
-                    "05:10 - Menyuntikkan Tegangan 1.5V ke Jalur Konslet",
-                    "07:15 - Melelehnya Asap Rosin Pada Kapasitor Biang Kerok"
+                    "00:00 - Pengasapan Rosin Pada PCB",
+                    "01:45 - Penyuntikan Arus 1.5V (Short Finder)",
+                    "02:50 - Pelelehan Rosin & Conkel Kapasitor"
                 ]
             },
             {
                 id: "v3",
-                title: "Teknik Jumper Kawat Enamel Jalur Lampu LCD",
-                duration: "15:10",
-                tag: "Solder Practice",
-                embedId: "Yp_dJ19293Y",
-                desc: "Teknik menyambung kawat tipis 0.02mm di bawah lup mikroskop untuk mengembalikan tegangan backlight layar yang terputus.",
-                simStepCaptions: [
-                    "Step 1: Kerok titik tembaga PCB yang putus menggunakan pisau bedah mikro.",
-                    "Step 2: Lapisi ujung kawat jumper 0.02mm dengan timah cair low-melt.",
-                    "Step 3: Solder kawat secara presisi ke titik jalur under mikroskop.",
-                    "Step 4: OLESKAN UV Masking Glue dan keringkan dengan lampu UV."
+                title: "Workshop Visual: Teknik Jumper Kawat Enamel 0.02mm",
+                duration: "05:00",
+                tag: "Mikrosolder Presisi",
+                icon: "fa-screwdriver",
+                desc: "Menyambung jalur tembaga LCD yang terputus di bawah penyorotan mikroskop presisi.",
+                simSteps: [
+                    {
+                        title: "1. Kerok Jalur Masking PCB Putus",
+                        subtitle: "Gunakan pisau bedah mikro untuk membuka lapisan tembaga titik jumper.",
+                        psuVal: "N/A",
+                        visualType: "jumper_scrape",
+                        speechText: "Kerok perlahan lapisan pelindung PCB menggunakan pisau mikro sampai titik tembaga mengkilap terlihat."
+                    },
+                    {
+                        title: "2. Sambung Kawat Enamel Under Mikroskop",
+                        subtitle: "Solder kawat halus 0.02mm yang telah dilapisi timah liquid low-melt.",
+                        psuVal: "N/A",
+                        visualType: "jumper_solder",
+                        speechText: "Oleskan flux, lalu tempelkan kawat halus nol koma nol dua milimeter tepat di atas titik tembaga dengan ujung solder lancip."
+                    },
+                    {
+                        title: "3. Pelapisan Lem UV Glue Anti-Putus",
+                        subtitle: "Keringkan dengan senter sinar UV selama 10 detik agar kawat kokoh.",
+                        psuVal: "N/A",
+                        visualType: "jumper_uv",
+                        speechText: "Terakhir, oleskan sedikit lem hijau UV masking dan sinar dengan lampu UV selama sepuluh detik agar sambungan kawat kuat selamanya!"
+                    }
                 ],
                 timestamps: [
-                    "02:00 - Pengerokan Masking PCB Titik Putus",
-                    "06:30 - Melapisi Ujung Kawat Jumper Dengan Timah Liquid",
-                    "10:15 - Penyorotan Mikroskop & Penyolderan Titik Presisi",
-                    "13:50 - Pengujian Layar HP & Melapisi UV Glue Masking"
+                    "00:00 - Pengerokan Titik Tembaga PCB",
+                    "02:10 - Penyolderan Kawat 0.02mm Presisi",
+                    "04:00 - Pengeringan UV Masking Glue"
                 ]
             }
         ];
@@ -1153,10 +1166,10 @@
             quizScores: {},
             simCount: 0,
             activeVideoId: null,
-            playerMode: 'stream', // 'stream' or 'simulation'
             simStepIndex: 0,
             simInterval: null,
-            isPlayingSim: false
+            isPlayingSim: false,
+            ttsEnabled: true
         };
 
         // DOM Load Initializer
@@ -1191,7 +1204,6 @@
                 activeNav.classList.remove('text-slate-300');
             }
 
-            // Close mobile menu
             document.getElementById('mobile-menu').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1297,7 +1309,6 @@
             document.getElementById('stat-progress-count').innerText = count;
             document.getElementById('stat-progress-bar').style.width = pct + '%';
 
-            // Quiz Scores Avg
             const scores = Object.values(state.quizScores);
             const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
             document.getElementById('stat-quiz-score').innerText = avg;
@@ -1496,7 +1507,7 @@
         }
 
 
-        /* ==================== VIDEO GALLERY & DUAL-MODE PLAYER SYSTEM ==================== */
+        /* ==================== 100% WORKING ANIMATED WORKSHOP PLAYER ==================== */
         function renderVideos() {
             const container = document.getElementById('video-card-grid');
             container.innerHTML = videoTutorials.map(v => {
@@ -1507,7 +1518,7 @@
                             <div class="relative bg-slate-950 h-44 flex items-center justify-center overflow-hidden">
                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
                                 <div class="w-14 h-14 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-rose-500 transition z-20">
-                                    <i class="fa-solid fa-play text-xl ml-1"></i>
+                                    <i class="fa-solid ${v.icon} text-xl"></i>
                                 </div>
                                 <span class="absolute bottom-2 right-2 bg-slate-950/90 border border-slate-800 px-2 py-0.5 rounded text-[10px] text-slate-300 font-mono z-20">${v.duration}</span>
                                 ${isWatched ? `<span class="absolute top-2 right-2 bg-emerald-500 text-slate-950 font-bold px-2 py-0.5 rounded text-[10px] z-20 flex items-center space-x-1"><i class="fa-solid fa-check"></i><span>Ditonton</span></span>` : ''}
@@ -1519,7 +1530,7 @@
                             </div>
                         </div>
                         <div class="px-4 pb-4 pt-1 flex items-center justify-between text-[11px] text-blue-400 font-semibold border-t border-slate-800/40 mt-2">
-                            <span>Putar Video Praktik</span>
+                            <span>Putar Mentoring Interaktif</span>
                             <i class="fa-solid fa-circle-play"></i>
                         </div>
                     </div>
@@ -1545,152 +1556,160 @@
                 </li>
             `).join('');
 
-            // Update Complete Button state
             updateCompleteButtonUI();
-
             document.getElementById('video-modal').classList.remove('hidden');
-            
-            // Default load stream mode
-            switchVideoPlayerMode('stream');
+
+            // Load Animated Interactive Player
+            loadWorkshopSimulationPlayer(v);
         }
 
-        function switchVideoPlayerMode(mode) {
-            state.playerMode = mode;
-            const v = videoTutorials.find(item => item.id === state.activeVideoId);
-            const container = document.getElementById('player-dynamic-viewport');
-            
-            const btnStream = document.getElementById('btn-mode-stream');
-            const btnSim = document.getElementById('btn-mode-sim');
-
-            if (mode === 'stream') {
-                btnStream.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 bg-rose-600 text-white";
-                btnSim.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 text-slate-400 hover:text-white";
-
-                // Inject YouTube iFrame Embed
-                container.innerHTML = `
-                    <iframe 
-                        class="w-full h-full border-0" 
-                        src="https://www.youtube-nocookie.com/embed/${v.embedId}?autoplay=1&rel=0&modestbranding=1" 
-                        title="${v.title}"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                `;
-            } else {
-                btnSim.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 bg-blue-600 text-white";
-                btnStream.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 text-slate-400 hover:text-white";
-
-                // Start Interactive Canvas/DOM Animation Player
-                initInteractiveSimulationPlayer(v);
-            }
-        }
-
-        /* Interactive Workshop Video Simulation Logic */
-        function initInteractiveSimulationPlayer(videoObj) {
+        function loadWorkshopSimulationPlayer(v) {
             if (state.simInterval) clearInterval(state.simInterval);
             state.simStepIndex = 0;
             state.isPlayingSim = true;
 
-            const container = document.getElementById('player-dynamic-viewport');
-            
-            container.innerHTML = `
-                <div class="w-full h-full bg-slate-950 flex flex-col justify-between p-4 sm:p-6 relative select-none">
-                    <!-- Top Overlay Info -->
+            renderWorkshopStep(v);
+
+            // Auto-advance loop every 7 seconds
+            state.simInterval = setInterval(() => {
+                if (!state.isPlayingSim) return;
+                state.simStepIndex = (state.simStepIndex + 1) % v.simSteps.length;
+                renderWorkshopStep(v);
+            }, 7000);
+        }
+
+        function renderWorkshopStep(v) {
+            const step = v.simSteps[state.simStepIndex];
+            const viewport = document.getElementById('player-dynamic-viewport');
+
+            // Build Visual Graphics depending on step visualType
+            let visualGraphicHtml = '';
+            if (step.visualType.startsWith('psu')) {
+                visualGraphicHtml = `
+                    <div class="bg-slate-900 border-2 border-slate-800 rounded-xl p-4 w-full max-w-xs font-mono text-center space-y-2 shadow-2xl">
+                        <div class="text-[10px] text-slate-400 uppercase">Power Supply Output Meter</div>
+                        <div class="text-3xl font-extrabold ${step.visualType === 'psu_stuck' ? 'text-amber-400 pulse-subtle' : 'text-emerald-400'}">
+                            ${step.psuVal}
+                        </div>
+                        <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                            <div class="bg-amber-400 h-full ${step.visualType === 'psu_stuck' ? 'w-1/4' : 'w-0'}"></div>
+                        </div>
+                    </div>
+                `;
+            } else if (step.visualType.startsWith('rosin')) {
+                visualGraphicHtml = `
+                    <div class="relative bg-emerald-950/80 border-2 border-emerald-700/60 rounded-xl p-4 w-full max-w-xs text-center space-y-3">
+                        <div class="text-[10px] text-emerald-400 font-mono">PCB MIKROSKOP - KALENG IC POWER</div>
+                        <div class="relative flex justify-center items-center h-20">
+                            <div class="w-12 h-12 bg-slate-800 rounded border border-amber-500/50 flex items-center justify-center font-bold text-xs text-white">
+                                C204
+                            </div>
+                            ${step.visualType === 'rosin_smoke' ? `<div class="absolute -top-4 w-10 h-10 bg-white/20 rounded-full blur-md animate-smoke"></div>` : ''}
+                            ${step.visualType === 'rosin_melt' ? `<div class="absolute w-14 h-14 bg-rose-500/40 rounded-full animate-ping"></div>` : ''}
+                        </div>
+                    </div>
+                `;
+            } else {
+                visualGraphicHtml = `
+                    <div class="bg-slate-900 border-2 border-blue-500/40 rounded-xl p-4 w-full max-w-xs text-center space-y-2">
+                        <div class="text-xs font-bold text-blue-400">JUMPING KAWAT MIKRO 0.02mm</div>
+                        <div class="text-2xl text-amber-400"><i class="fa-solid fa-microscope"></i></div>
+                        <div class="text-[10px] text-slate-400">Skala Perbesaran 40x Mikroskop</div>
+                    </div>
+                `;
+            }
+
+            viewport.innerHTML = `
+                <div class="w-full h-full p-4 sm:p-6 flex flex-col justify-between relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+                    <!-- Top Overlay Controls -->
                     <div class="flex justify-between items-center z-10">
                         <div class="flex items-center space-x-2">
-                            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
-                            <span class="text-xs font-bold text-emerald-400 tracking-wider">LAB SERVIS INTERAKTIF LIVE</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wide">MENTORING LIVE ANIMATED WORKSHOP</span>
                         </div>
-                        <span class="text-xs font-mono text-slate-400 bg-slate-900/80 border border-slate-800 px-2.5 py-1 rounded-lg">
-                            <i class="fa-solid fa-clock text-amber-400 mr-1"></i> <span id="sim-timer-disp">00:05</span> / ${videoObj.duration}
+                        <span class="text-xs font-mono text-slate-400 bg-slate-900 border border-slate-800 px-2 py-1 rounded">
+                            Langkah ${state.simStepIndex + 1} / ${v.simSteps.length}
                         </span>
                     </div>
 
-                    <!-- Center Animated Screen / Graphics -->
-                    <div class="flex flex-col items-center justify-center my-auto space-y-4">
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-3xl shadow-xl shadow-blue-500/20 pulse-subtle">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
+                    <!-- Center Animation Graphics & Subtitles -->
+                    <div class="flex flex-col items-center justify-center space-y-4 my-auto">
+                        ${visualGraphicHtml}
 
-                        <!-- Live Mentoring Subtitle Caption Box -->
-                        <div class="bg-slate-900/95 border border-blue-500/40 p-4 rounded-xl max-w-xl w-full text-center space-y-1 shadow-2xl">
+                        <!-- Subtitle Caption -->
+                        <div class="bg-slate-900/90 border border-amber-500/30 p-4 rounded-xl max-w-xl w-full text-center space-y-1 shadow-2xl">
                             <div class="text-[10px] font-bold text-amber-400 uppercase tracking-widest flex items-center justify-center space-x-1">
                                 <i class="fa-solid fa-user-ninja"></i>
-                                <span>Voiceover Mentor Dedy Priyady:</span>
+                                <span>${step.title}</span>
                             </div>
-                            <p id="sim-subtitle-text" class="text-xs sm:text-sm font-semibold text-white leading-relaxed">
-                                ${videoObj.simStepCaptions[0]}
-                            </p>
+                            <p class="text-xs sm:text-sm text-white font-medium leading-relaxed">${step.subtitle}</p>
                         </div>
                     </div>
 
-                    <!-- Bottom Timeline & Interactive Controls -->
+                    <!-- Bottom Navigation Controls -->
                     <div class="space-y-2 z-10">
-                        <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
-                            <div id="sim-progress-bar" class="bg-gradient-to-r from-blue-500 to-emerald-400 h-full w-1/4 transition-all duration-500"></div>
+                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                            <div class="bg-emerald-500 h-full transition-all duration-500" style="width: ${((state.simStepIndex + 1) / v.simSteps.length) * 100}%"></div>
                         </div>
 
                         <div class="flex items-center justify-between text-xs pt-1">
-                            <div class="flex space-x-2">
-                                <button onclick="togglePlaySim()" id="sim-play-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-bold flex items-center space-x-1">
-                                    <i class="fa-solid fa-pause"></i> <span>Pause</span>
-                                </button>
-                                <button onclick="nextSimStep()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg font-medium">
-                                    Langkah Berikutnya <i class="fa-solid fa-chevron-right ml-1"></i>
-                                </button>
-                            </div>
-                            <span class="text-[10px] text-slate-400">Langkah <span id="sim-step-num">1</span> dari 4</span>
+                            <button onclick="togglePlayPauseSim('${v.id}')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-lg font-bold flex items-center space-x-1 text-xs">
+                                <i class="fa-solid ${state.isPlayingSim ? 'fa-pause' : 'fa-play'}"></i>
+                                <span>${state.isPlayingSim ? 'Jeda' : 'Lanjut'}</span>
+                            </button>
+                            <button onclick="nextSimStepManual('${v.id}')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1 rounded-lg font-medium text-xs">
+                                Langkah Berikutnya <i class="fa-solid fa-chevron-right ml-1"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             `;
 
-            startSimLoop(videoObj);
-        }
-
-        function startSimLoop(videoObj) {
-            if (state.simInterval) clearInterval(state.simInterval);
-            state.simInterval = setInterval(() => {
-                if (!state.isPlayingSim) return;
-                state.simStepIndex = (state.simStepIndex + 1) % videoObj.simStepCaptions.length;
-                updateSimUI(videoObj);
-            }, 4000);
-        }
-
-        function updateSimUI(videoObj) {
-            const sub = document.getElementById('sim-subtitle-text');
-            const bar = document.getElementById('sim-progress-bar');
-            const stepNum = document.getElementById('sim-step-num');
-            const timer = document.getElementById('sim-timer-disp');
-
-            if (sub) sub.innerText = videoObj.simStepCaptions[state.simStepIndex];
-            if (stepNum) stepNum.innerText = state.simStepIndex + 1;
-            
-            const pct = ((state.simStepIndex + 1) / videoObj.simStepCaptions.length) * 100;
-            if (bar) bar.style.width = pct + '%';
-            if (timer) timer.innerText = `00:${(state.simStepIndex + 1) * 3}0`;
-        }
-
-        function togglePlaySim() {
-            state.isPlayingSim = !state.isPlayingSim;
-            const btn = document.getElementById('sim-play-btn');
-            if (state.isPlayingSim) {
-                btn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>Pause</span>`;
-            } else {
-                btn.innerHTML = `<i class="fa-solid fa-play"></i> <span>Mulai</span>`;
+            // Trigger Voice Speech Narration if enabled
+            if (state.ttsEnabled) {
+                speakMentorText(step.speechText);
             }
         }
 
-        function nextSimStep() {
-            const v = videoTutorials.find(item => item.id === state.activeVideoId);
-            if (!v) return;
-            state.simStepIndex = (state.simStepIndex + 1) % v.simStepCaptions.length;
-            updateSimUI(v);
+        function speakMentorText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // stop previous speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function toggleVoiceAudio() {
+            state.ttsEnabled = !state.ttsEnabled;
+            const btnLabel = document.getElementById('tts-label');
+            const icon = document.getElementById('tts-icon');
+            if (state.ttsEnabled) {
+                btnLabel.innerText = "Suara Mentor: AKTIF";
+                icon.className = "fa-solid fa-volume-high";
+            } else {
+                btnLabel.innerText = "Suara Mentor: MATI";
+                icon.className = "fa-solid fa-volume-xmark";
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
+        }
+
+        function togglePlayPauseSim(videoId) {
+            state.isPlayingSim = !state.isPlayingSim;
+            const v = videoTutorials.find(item => item.id === videoId);
+            renderWorkshopStep(v);
+        }
+
+        function nextSimStepManual(videoId) {
+            const v = videoTutorials.find(item => item.id === videoId);
+            state.simStepIndex = (state.simStepIndex + 1) % v.simSteps.length;
+            renderWorkshopStep(v);
         }
 
         function closeVideoModal() {
             if (state.simInterval) clearInterval(state.simInterval);
-            document.getElementById('player-dynamic-viewport').innerHTML = '';
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             document.getElementById('video-modal').classList.add('hidden');
         }
 
