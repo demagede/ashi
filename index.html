@@ -503,7 +503,7 @@
                 </div>
                 <h2 class="text-2xl font-extrabold text-white">Video Mentoring Praktik Meja Kerja</h2>
                 <p class="text-slate-300 text-sm">
-                    Saksikan demonstrasi mendiagnosa kerusakan secara cermat dari Mentor Dedy Priyady. Klik pada judul video untuk memutar.
+                    Saksikan demonstrasi mendiagnosa kerusakan secara cermat dari Mentor Dedy Priyady. Klik kartu video untuk mulai memutar.
                 </p>
             </div>
 
@@ -515,53 +515,51 @@
 
     </main>
 
-    <!-- Modal Interactive Video Player -->
-    <div id="video-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <!-- Header Modal -->
-            <div class="p-4 border-b border-slate-800 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <span class="bg-rose-500/20 text-rose-400 text-xs px-2.5 py-1 rounded font-bold border border-rose-500/30 flex items-center space-x-1">
-                        <i class="fa-solid fa-circle-play"></i>
+    <!-- Modal Interactive Video Player (Dual Mode YouTube Embed + Interactive Animation) -->
+    <div id="video-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-5">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[92vh]">
+            
+            <!-- Header Modal & Mode Switcher -->
+            <div class="p-3 sm:p-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 bg-slate-900">
+                <div class="flex items-center space-x-2 overflow-hidden">
+                    <span class="bg-rose-500/20 text-rose-400 text-[11px] px-2.5 py-1 rounded font-bold border border-rose-500/30 shrink-0 flex items-center space-x-1">
+                        <i class="fa-solid fa-video"></i>
                         <span id="video-modal-tag">Mentoring</span>
                     </span>
-                    <h3 id="video-modal-title" class="font-bold text-white text-base truncate max-w-md">Judul Video</h3>
+                    <h3 id="video-modal-title" class="font-bold text-white text-sm sm:text-base truncate">Judul Video</h3>
                 </div>
-                <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white p-2 text-xl font-bold">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+
+                <!-- Mode Selector -->
+                <div class="flex items-center space-x-1.5">
+                    <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex space-x-1 text-xs">
+                        <button id="btn-mode-stream" onclick="switchVideoPlayerMode('stream')" class="px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 bg-rose-600 text-white">
+                            <i class="fa-brands fa-youtube"></i>
+                            <span class="hidden sm:inline">Streaming Video</span>
+                        </button>
+                        <button id="btn-mode-sim" onclick="switchVideoPlayerMode('simulation')" class="px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 text-slate-400 hover:text-white">
+                            <i class="fa-solid fa-laptop-code"></i>
+                            <span class="hidden sm:inline">Simulasi Animasi</span>
+                        </button>
+                    </div>
+                    <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white p-1.5 text-lg font-bold">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Video Canvas / HTML5 Player Area -->
-            <div class="bg-black relative aspect-video flex items-center justify-center overflow-hidden">
-                <video id="html5-video-player" class="w-full h-full object-contain" controls poster="">
-                    <source id="video-src-mp4" src="" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                </video>
-                <!-- Fallback visual display if video stream is blocked/offline -->
-                <div id="video-fallback-overlay" class="hidden absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center text-center p-6 space-y-4">
-                    <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-3xl pulse-subtle">
-                        <i class="fa-solid fa-microchip"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-bold text-lg">Simulasi Visual Mentoring Praktik</h4>
-                        <p class="text-slate-400 text-xs max-w-md mt-1" id="fallback-desc">Demonstrasi meja kerja servis HP dengan petunjuk langsung dari Mentor Dedy Priyady.</p>
-                    </div>
-                    <div class="flex items-center space-x-3 bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-xs text-amber-400">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                        <span>Durasi Praktik: <strong id="fallback-duration">10:00</strong></span>
-                    </div>
-                </div>
+            <!-- Video Player Dynamic View Area -->
+            <div id="player-dynamic-viewport" class="bg-black relative aspect-video flex items-center justify-center overflow-hidden">
+                <!-- Content injected via JavaScript: Iframe YouTube OR Animated Workshop Canvas -->
             </div>
 
             <!-- Video Info & Mentoring Notes -->
-            <div class="p-5 space-y-4 bg-slate-900 overflow-y-auto custom-scrollbar">
+            <div class="p-4 sm:p-5 space-y-4 bg-slate-900 overflow-y-auto custom-scrollbar">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
                     <div>
                         <div class="text-xs text-slate-400">Instruktur: <span class="text-amber-400 font-bold">Dedy Priyady</span></div>
                         <p id="video-modal-desc" class="text-xs text-slate-300 mt-1">Deskripsi detail pembahasan video.</p>
                     </div>
-                    <button id="video-complete-btn" onclick="markVideoWatched()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center space-x-2 shrink-0">
+                    <button id="video-complete-btn" onclick="markVideoWatched()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center space-x-2 shrink-0 self-start sm:self-center">
                         <i class="fa-solid fa-check"></i>
                         <span>Tandai Selesai Ditonton</span>
                     </button>
@@ -570,8 +568,8 @@
                 <!-- Timestamps & Key takeaways -->
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                     <div class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center space-x-1">
-                        <i class="fa-solid fa-list-ul"></i>
-                        <span>Poin Penting & Timestamp Video:</span>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Poin Penting & Timestamp Praktik:</span>
                     </div>
                     <ul class="text-xs text-slate-300 space-y-1.5" id="video-timestamps">
                         <!-- Populated dynamically -->
@@ -1082,15 +1080,21 @@
             }
         ];
 
-        /* ==================== VIDEO DATA WITH PLAYABLE MEDIA & TIMESTAMPS ==================== */
+        /* ==================== VIDEO TUTORIALS DATA ==================== */
         const videoTutorials = [
             {
                 id: "v1",
                 title: "Panduan Mendiagnosa HP Matot Arus Gantung",
                 duration: "12:45",
                 tag: "Power Supply",
-                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                embedId: "L1c9IUkxO1A",
                 desc: "Langkah mendeteksi apakah kerusakan ada pada software, IC Power, atau chip EMMC melalui pembacaan pergerakan jarum arus PSU.",
+                simStepCaptions: [
+                    "Step 1: Sambungkan konektor power supply ke PCB HP pada tegangan 4.0V VBAT.",
+                    "Step 2: Tekan tombol Power HP sambil memantau jarum arus Ampere.",
+                    "Step 3: Jarum meloncat ke 0.05A lalu berhenti diam (Arus Gantung).",
+                    "Step 4: Diagnosa Mentor: IC Power normal, namun CPU/EMMC gagal membaca firmware."
+                ],
                 timestamps: [
                     "00:30 - Persiapan Kabel Power Supply & Setting Voltage 4.0V",
                     "03:15 - Menghubungkan Probe ke Konektor Baterai PCB",
@@ -1103,8 +1107,14 @@
                 title: "Trik Mencari Kapasitor Konslet Menggunakan Rosin",
                 duration: "08:30",
                 tag: "Troubleshooting",
-                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                desc: "Metode mengasapi PCB dengan asap rosin untuk menemukan komponen panas penyebat short circuit dalam hitungan detik.",
+                embedId: "5a25_2p7T28",
+                desc: "Metode mengasapi PCB dengan asap rosin untuk menemukan komponen panas penyebab short circuit dalam hitungan detik.",
+                simStepCaptions: [
+                    "Step 1: Lumuri mata solder panas dengan batu rosin cair hingga mengeluarkam asap putih.",
+                    "Step 2: Asapi permukaan komponen sekitar IC Power hingga memutih.",
+                    "Step 3: Suntikkan tegangan terbatas 1.5V dari Power Supply ke jalur short.",
+                    "Step 4: Amati kapasitor yang meleleh duluan, itu adalah biang kerok konslet!"
+                ],
                 timestamps: [
                     "01:00 - Pengenalan Bahan Rosin & Solder Station",
                     "02:40 - Cara Mengasapi Komponen Sekitar IC Power",
@@ -1117,8 +1127,14 @@
                 title: "Teknik Jumper Kawat Enamel Jalur Lampu LCD",
                 duration: "15:10",
                 tag: "Solder Practice",
-                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                embedId: "Yp_dJ19293Y",
                 desc: "Teknik menyambung kawat tipis 0.02mm di bawah lup mikroskop untuk mengembalikan tegangan backlight layar yang terputus.",
+                simStepCaptions: [
+                    "Step 1: Kerok titik tembaga PCB yang putus menggunakan pisau bedah mikro.",
+                    "Step 2: Lapisi ujung kawat jumper 0.02mm dengan timah cair low-melt.",
+                    "Step 3: Solder kawat secara presisi ke titik jalur under mikroskop.",
+                    "Step 4: OLESKAN UV Masking Glue dan keringkan dengan lampu UV."
+                ],
                 timestamps: [
                     "02:00 - Pengerokan Masking PCB Titik Putus",
                     "06:30 - Melapisi Ujung Kawat Jumper Dengan Timah Liquid",
@@ -1136,7 +1152,11 @@
             watchedVideos: new Set(),
             quizScores: {},
             simCount: 0,
-            activeVideoId: null
+            activeVideoId: null,
+            playerMode: 'stream', // 'stream' or 'simulation'
+            simStepIndex: 0,
+            simInterval: null,
+            isPlayingSim: false
         };
 
         // DOM Load Initializer
@@ -1476,7 +1496,7 @@
         }
 
 
-        /* ==================== VIDEO GALLERY & PLAYER INTERACTIVITY ==================== */
+        /* ==================== VIDEO GALLERY & DUAL-MODE PLAYER SYSTEM ==================== */
         function renderVideos() {
             const container = document.getElementById('video-card-grid');
             container.innerHTML = videoTutorials.map(v => {
@@ -1485,9 +1505,8 @@
                     <div onclick="openVideoModal('${v.id}')" class="bg-slate-900 border ${isWatched ? 'border-emerald-500/40' : 'border-slate-800'} rounded-2xl overflow-hidden group hover:border-blue-500/50 transition cursor-pointer flex flex-col justify-between">
                         <div>
                             <div class="relative bg-slate-950 h-44 flex items-center justify-center overflow-hidden">
-                                <!-- Decorative Video Thumbnail Background -->
                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
-                                <div class="w-14 h-14 rounded-full bg-rose-600/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-rose-500 transition z-20">
+                                <div class="w-14 h-14 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-rose-500 transition z-20">
                                     <i class="fa-solid fa-play text-xl ml-1"></i>
                                 </div>
                                 <span class="absolute bottom-2 right-2 bg-slate-950/90 border border-slate-800 px-2 py-0.5 rounded text-[10px] text-slate-300 font-mono z-20">${v.duration}</span>
@@ -1500,7 +1519,7 @@
                             </div>
                         </div>
                         <div class="px-4 pb-4 pt-1 flex items-center justify-between text-[11px] text-blue-400 font-semibold border-t border-slate-800/40 mt-2">
-                            <span>Putar Mentoring Praktik</span>
+                            <span>Putar Video Praktik</span>
                             <i class="fa-solid fa-circle-play"></i>
                         </div>
                     </div>
@@ -1517,22 +1536,6 @@
             document.getElementById('video-modal-tag').innerText = v.tag;
             document.getElementById('video-modal-desc').innerText = v.desc;
 
-            // HTML5 Video Player Setup
-            const player = document.getElementById('html5-video-player');
-            const source = document.getElementById('video-src-mp4');
-            const fallback = document.getElementById('video-fallback-overlay');
-
-            source.src = v.videoUrl;
-            player.load();
-            
-            // Handle Video Error Fallback gracefully if stream fails to load
-            player.onerror = function() {
-                fallback.classList.remove('hidden');
-                document.getElementById('fallback-desc').innerText = v.desc;
-                document.getElementById('fallback-duration').innerText = v.duration;
-            };
-            fallback.classList.add('hidden');
-
             // Render Timestamps
             const tsContainer = document.getElementById('video-timestamps');
             tsContainer.innerHTML = v.timestamps.map(ts => `
@@ -1543,22 +1546,151 @@
             `).join('');
 
             // Update Complete Button state
-            const compBtn = document.getElementById('video-complete-btn');
-            if (state.watchedVideos.has(videoId)) {
-                compBtn.className = "bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-bold px-4 py-2 rounded-xl flex items-center space-x-2";
-                compBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>Selesai Ditonton</span>`;
-            } else {
-                compBtn.className = "bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center space-x-2";
-                compBtn.innerHTML = `<i class="fa-solid fa-check"></i><span>Tandai Selesai Ditonton</span>`;
-            }
+            updateCompleteButtonUI();
 
             document.getElementById('video-modal').classList.remove('hidden');
-            player.play().catch(e => console.log('Autoplay prevented or network fallback ready:', e));
+            
+            // Default load stream mode
+            switchVideoPlayerMode('stream');
+        }
+
+        function switchVideoPlayerMode(mode) {
+            state.playerMode = mode;
+            const v = videoTutorials.find(item => item.id === state.activeVideoId);
+            const container = document.getElementById('player-dynamic-viewport');
+            
+            const btnStream = document.getElementById('btn-mode-stream');
+            const btnSim = document.getElementById('btn-mode-sim');
+
+            if (mode === 'stream') {
+                btnStream.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 bg-rose-600 text-white";
+                btnSim.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 text-slate-400 hover:text-white";
+
+                // Inject YouTube iFrame Embed
+                container.innerHTML = `
+                    <iframe 
+                        class="w-full h-full border-0" 
+                        src="https://www.youtube-nocookie.com/embed/${v.embedId}?autoplay=1&rel=0&modestbranding=1" 
+                        title="${v.title}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } else {
+                btnSim.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 bg-blue-600 text-white";
+                btnStream.className = "px-2.5 py-1 rounded-lg font-bold transition flex items-center space-x-1 text-slate-400 hover:text-white";
+
+                // Start Interactive Canvas/DOM Animation Player
+                initInteractiveSimulationPlayer(v);
+            }
+        }
+
+        /* Interactive Workshop Video Simulation Logic */
+        function initInteractiveSimulationPlayer(videoObj) {
+            if (state.simInterval) clearInterval(state.simInterval);
+            state.simStepIndex = 0;
+            state.isPlayingSim = true;
+
+            const container = document.getElementById('player-dynamic-viewport');
+            
+            container.innerHTML = `
+                <div class="w-full h-full bg-slate-950 flex flex-col justify-between p-4 sm:p-6 relative select-none">
+                    <!-- Top Overlay Info -->
+                    <div class="flex justify-between items-center z-10">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span class="text-xs font-bold text-emerald-400 tracking-wider">LAB SERVIS INTERAKTIF LIVE</span>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400 bg-slate-900/80 border border-slate-800 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-clock text-amber-400 mr-1"></i> <span id="sim-timer-disp">00:05</span> / ${videoObj.duration}
+                        </span>
+                    </div>
+
+                    <!-- Center Animated Screen / Graphics -->
+                    <div class="flex flex-col items-center justify-center my-auto space-y-4">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-3xl shadow-xl shadow-blue-500/20 pulse-subtle">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+
+                        <!-- Live Mentoring Subtitle Caption Box -->
+                        <div class="bg-slate-900/95 border border-blue-500/40 p-4 rounded-xl max-w-xl w-full text-center space-y-1 shadow-2xl">
+                            <div class="text-[10px] font-bold text-amber-400 uppercase tracking-widest flex items-center justify-center space-x-1">
+                                <i class="fa-solid fa-user-ninja"></i>
+                                <span>Voiceover Mentor Dedy Priyady:</span>
+                            </div>
+                            <p id="sim-subtitle-text" class="text-xs sm:text-sm font-semibold text-white leading-relaxed">
+                                ${videoObj.simStepCaptions[0]}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Timeline & Interactive Controls -->
+                    <div class="space-y-2 z-10">
+                        <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
+                            <div id="sim-progress-bar" class="bg-gradient-to-r from-blue-500 to-emerald-400 h-full w-1/4 transition-all duration-500"></div>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs pt-1">
+                            <div class="flex space-x-2">
+                                <button onclick="togglePlaySim()" id="sim-play-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-bold flex items-center space-x-1">
+                                    <i class="fa-solid fa-pause"></i> <span>Pause</span>
+                                </button>
+                                <button onclick="nextSimStep()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg font-medium">
+                                    Langkah Berikutnya <i class="fa-solid fa-chevron-right ml-1"></i>
+                                </button>
+                            </div>
+                            <span class="text-[10px] text-slate-400">Langkah <span id="sim-step-num">1</span> dari 4</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            startSimLoop(videoObj);
+        }
+
+        function startSimLoop(videoObj) {
+            if (state.simInterval) clearInterval(state.simInterval);
+            state.simInterval = setInterval(() => {
+                if (!state.isPlayingSim) return;
+                state.simStepIndex = (state.simStepIndex + 1) % videoObj.simStepCaptions.length;
+                updateSimUI(videoObj);
+            }, 4000);
+        }
+
+        function updateSimUI(videoObj) {
+            const sub = document.getElementById('sim-subtitle-text');
+            const bar = document.getElementById('sim-progress-bar');
+            const stepNum = document.getElementById('sim-step-num');
+            const timer = document.getElementById('sim-timer-disp');
+
+            if (sub) sub.innerText = videoObj.simStepCaptions[state.simStepIndex];
+            if (stepNum) stepNum.innerText = state.simStepIndex + 1;
+            
+            const pct = ((state.simStepIndex + 1) / videoObj.simStepCaptions.length) * 100;
+            if (bar) bar.style.width = pct + '%';
+            if (timer) timer.innerText = `00:${(state.simStepIndex + 1) * 3}0`;
+        }
+
+        function togglePlaySim() {
+            state.isPlayingSim = !state.isPlayingSim;
+            const btn = document.getElementById('sim-play-btn');
+            if (state.isPlayingSim) {
+                btn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>Pause</span>`;
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> <span>Mulai</span>`;
+            }
+        }
+
+        function nextSimStep() {
+            const v = videoTutorials.find(item => item.id === state.activeVideoId);
+            if (!v) return;
+            state.simStepIndex = (state.simStepIndex + 1) % v.simStepCaptions.length;
+            updateSimUI(v);
         }
 
         function closeVideoModal() {
-            const player = document.getElementById('html5-video-player');
-            player.pause();
+            if (state.simInterval) clearInterval(state.simInterval);
+            document.getElementById('player-dynamic-viewport').innerHTML = '';
             document.getElementById('video-modal').classList.add('hidden');
         }
 
@@ -1566,10 +1698,18 @@
             if (!state.activeVideoId) return;
             state.watchedVideos.add(state.activeVideoId);
             renderVideos();
-            
+            updateCompleteButtonUI();
+        }
+
+        function updateCompleteButtonUI() {
             const compBtn = document.getElementById('video-complete-btn');
-            compBtn.className = "bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-bold px-4 py-2 rounded-xl flex items-center space-x-2";
-            compBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>Selesai Ditonton</span>`;
+            if (state.watchedVideos.has(state.activeVideoId)) {
+                compBtn.className = "bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-bold px-4 py-2 rounded-xl flex items-center space-x-2";
+                compBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>Selesai Ditonton</span>`;
+            } else {
+                compBtn.className = "bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center space-x-2";
+                compBtn.innerHTML = `<i class="fa-solid fa-check"></i><span>Tandai Selesai Ditonton</span>`;
+            }
         }
     </script>
 </body>
